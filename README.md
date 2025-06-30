@@ -7,7 +7,7 @@ This repository contains the fullstack source code powering UglyDog — an exper
 
 ## 📦 Tech Stack
 
-- **Backend**: Laravel 11 + Laravel Shield (role-permission system)
+- **Backend**: Laravel 12 + Laravel Shield (role-permission system)
 - **Frontend**: ReactJS (Vite)
 - **Authentication & RBAC**: Laravel Shield
 - **Web3 Integration**: Handled by our Web3 Developer (👋 hi, I'm the Web3 dev!)
