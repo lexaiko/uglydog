@@ -22,7 +22,7 @@ Clone the repository and follow the steps below to get both backend and frontend
 
 ### 🔧 Backend Setup (Laravel)
 
-
+```bash
 # Clone repo
 git clone https://github.com/lexaiko/uglydog.git
 
@@ -49,7 +49,7 @@ npm run dev
 
 # Serve Laravel app
 php artisan serve
-
+```
 ---
 
 ### Frontend
@@ -62,5 +62,5 @@ npm install
 
 # Start frontend dev server
 npm run dev
-
+```
 ---
