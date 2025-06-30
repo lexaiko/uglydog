@@ -35,6 +35,17 @@ composer install
 # Install frontend dependencies (for Laravel Vite assets)
 npm install
 
+# Copy .env
+cp .env.example .env
+
+# Configure ur database in .env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=ur_database
+DB_USERNAME=root
+DB_PASSWORD=
+
 # Generate all Shield (role & permission) configs
 php artisan shield:generate --all
 
