@@ -2,54 +2,50 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
+use App\Models\Pengguna;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
     public function login(Request $request)
-    {
-        $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
+{
+    $credentials = $request->only('email', 'password');
 
-        if (!Auth::guard('web')->attempt($request->only('email', 'password'), true)) {
-            throw ValidationException::withMessages([
-                'email' => ['Email atau password salah.'],
-            ]);
-        }
-
-        $request->session()->regenerate(); // penting untuk session hijack protection
-
-        return response()->json([
-            'message' => 'Login berhasil.',
-            'user' => Auth::user(),
-        ]);
+    if (!Auth::guard('pengguna')->attempt($credentials)) {
+        return response()->json(['message' => 'Login gagal'], 401);
     }
 
-    public function users(Request $request)
-    {
-        $user = $request->user();
-        return response()->json([
-            'user' => $user
-        ]);
-    }
+    $request->session()->regenerate();
+
+    return response()->json(['message' => 'Login sukses']);
+}
 
     public function logout(Request $request)
-    {
-        Auth::guard('web')->logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+{
+    Auth::guard('pengguna')->logout(); // <-- Penting!
 
-        return response()->json(['message' => 'Logout berhasil.']);
-    }
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+
+    return response()->json(['message' => 'Logout sukses']);
+}
+
 
     public function me(Request $request)
     {
-        return response()->json($request->user());
+        return response()->json(Auth::guard('pengguna')->user());
     }
+
+
+public function users(Request $request)
+{
+    $user = $request->user()->load('wallets');
+    return response()->json([
+        'user' => $user
+    ]);
+}
 }

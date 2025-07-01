@@ -17,6 +17,27 @@ export default function Dashboard() {
       .finally(() => setLoading(false))
   }, [navigate])
 
+  const handleLogout = () => {
+    api.post('/auth/logout')
+      .then(() => {
+        console.log('Logout sukses')
+        navigate('/login')
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  }
+
+  if (user) {
+    return (
+      <div>
+        <h1>Dashboard</h1>
+        <p>Data users: {JSON.stringify(user)}</p>
+        <button onClick={handleLogout}>Logout</button>
+      </div>
+    )
+  }
+
   if (loading) return <p>Loading...</p>
   if (!user) return null
 
