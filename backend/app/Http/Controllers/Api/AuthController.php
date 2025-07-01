@@ -61,6 +61,9 @@ class AuthController extends Controller
     //     ]);
     // }
 
+    // Get all users
+
+
     //logout
     public function logout(Request $request)
     {

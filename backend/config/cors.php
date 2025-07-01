@@ -1,10 +1,11 @@
 <?php
+
 return [
-    'paths' => ['api/*', 'login', 'logout', 'sanctum/csrf-cookie'],
+    'paths' => ['api/*', 'auth/*', 'sanctum/csrf-cookie'],
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['http://localhost:3000'], // Jangan pakai '*'
+    'allowed_origins' => ['http://localhost:3000'],
 
     'allowed_origins_patterns' => [],
 
@@ -14,5 +15,5 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => false, // karena pakai token, BUKAN cookie
+    'supports_credentials' => true, // Hanya ini, yang 'allowed_credentials' hapus
 ];
