@@ -46,14 +46,17 @@ DB_DATABASE=ur_database
 DB_USERNAME=root
 DB_PASSWORD=
 
+# Run key generate
+php artisan key:generate
+
+# Run fresh migration and seed database
+php artisan migrate:fresh --seed
+
 # Generate all Shield (role & permission) configs
 php artisan shield:generate --all
 
 # Assign super-admin role to specific user (choose user ID 11)
 php artisan shield:super-admin
-
-# Run fresh migration and seed database
-php artisan migrate:fresh --seed
 
 # Run development build for Laravel assets
 npm run dev
