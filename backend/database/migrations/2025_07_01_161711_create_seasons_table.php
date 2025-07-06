@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('wallets', function (Blueprint $table) {
+        Schema::create('seasons', function (Blueprint $table) {
         $table->id();
-        $table->foreignUuid('pengguna_id')->constrained('penggunas')->onDelete('cascade');
-        $table->string('provider')->nullable(); // contoh: 'phantom', 'metamask'
-        $table->string('address')->unique();    // hex address wallet
+        $table->string('nama');
+        $table->date('mulai');
+        $table->date('selesai');
+        $table->boolean('aktif')->default(false); // season saat ini
         $table->timestamps();
     });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('wallets');
+        Schema::dropIfExists('seasons');
     }
 };

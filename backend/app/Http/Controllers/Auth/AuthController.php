@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Task;
+use App\Models\Season;
+use App\Models\Wallet;
 use App\Models\Pengguna;
+use App\Models\ScoreUser;
 use Illuminate\Http\Request;
+use App\Models\UserGameProfile;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Resources\ProfileResource;
+
 
 class AuthController extends Controller
 {
@@ -16,13 +23,71 @@ class AuthController extends Controller
     $credentials = $request->only('email', 'password');
 
     if (!Auth::guard('pengguna')->attempt($credentials)) {
-        return response()->json(['message' => 'Login gagal'], 401);
+        return response()->json(['message' => 'Login failed'], 401);
     }
 
     $request->session()->regenerate();
 
-    return response()->json(['message' => 'Login sukses']);
+    return response()->json(['message' => 'Login successful']);
 }
+public function register(Request $request)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:penggunas,email',
+        'password' => 'required|min:6',
+    ]);
+
+    // 🧍‍♂️ Buat user
+    $user = Pengguna::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+    ]);
+    UserGameProfile::create([
+        'user_id' => $user->id,
+        'total_score' => 0,
+        'best_session' => 0,
+        'total_sessions' => 0,
+        'current_savepoint' => 0,
+    ]);
+
+    // 🚀 Login langsung pakai guard pengguna
+    Auth::guard('pengguna')->login($user);
+
+    // Regenerasi session
+    $request->session()->regenerate();
+
+    return response()->json([
+        'message' => 'Registration successful!',
+        'user' => $user
+    ]);
+}
+public function update(Request $request)
+{
+    $user = auth('pengguna')->user();
+
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:penggunas,email,' . $user->id,
+        'password' => 'nullable|string|min:6|confirmed', // Optional
+    ]);
+
+    $user->name = $request->name;
+    $user->email = $request->email;
+
+    if ($request->filled('password')) {
+        $user->password = Hash::make($request->password);
+    }
+
+    $user->save();
+
+    return response()->json([
+        'message' => 'Profile updated successfully',
+        'user' => $user,
+    ]);
+}
+
 
     public function logout(Request $request)
 {
@@ -31,21 +96,15 @@ class AuthController extends Controller
     $request->session()->invalidate();
     $request->session()->regenerateToken();
 
-    return response()->json(['message' => 'Logout sukses']);
+    return response()->json(['message' => 'Logout successful']);
 }
-
-
-    public function me(Request $request)
-    {
-        return response()->json(Auth::guard('pengguna')->user());
-    }
-
 
 public function users(Request $request)
 {
-    $user = $request->user()->load('wallets');
-    return response()->json([
-        'user' => $user
+    $user = $request->user()->load([
+        'wallets'
     ]);
+
+    return $resource = new ProfileResource($user);
 }
 }

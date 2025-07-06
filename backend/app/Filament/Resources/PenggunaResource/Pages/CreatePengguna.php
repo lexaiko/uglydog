@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\WalletResource\Pages;
+namespace App\Filament\Resources\PenggunaResource\Pages;
 
-use App\Filament\Resources\WalletResource;
+use App\Filament\Resources\PenggunaResource;
 use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 
-class CreateWallet extends CreateRecord
+class CreatePengguna extends CreateRecord
 {
-    protected static string $resource = WalletResource::class;
+    protected static string $resource = PenggunaResource::class;
     protected static bool $canCreateAnother = false;
 
     //customize redirect after create

@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
                 PostSeeder::class,
                 ContactSeeder::class,
                 PenggunaSeeder::class,
-                WalletSeeder::class
+                WalletSeeder::class,
             ]
         );
     }

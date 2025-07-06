@@ -31,19 +31,21 @@ export default function Login() {
   }
 
   return (
-    <form onSubmit={handleLogin}>
+    <form onSubmit={handleLogin} className="max-w-md mx-auto p-4 space-y-3">
       <input
         type="email"
         placeholder="Email"
         onChange={(e) => setEmail(e.target.value)}
+        className="w-full p-2 border rounded"
       />
       <input
         type="password"
         placeholder="Password"
         onChange={(e) => setPassword(e.target.value)}
+        className="w-full p-2 border rounded"
       />
-      <button type="submit">Login</button>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <button type="submit" className="bg-blue-500 text-white p-2 rounded">Login</button>
+      {error && <p className="text-red-500">{error}</p>}
     </form>
   )
 }
