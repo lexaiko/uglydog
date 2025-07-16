@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\VisitorController;
 
-Route::post('/visitor/track', [VisitorController::class, 'track']);
+Route::post('/visitor/track', [VisitorController::class, 'track'])->middleware('throttle:5,120');;
 Route::get('/visitor/total', [VisitorController::class, 'total']);
 Route::post('/visitor/add', [VisitorController::class, 'addManual']);
 
