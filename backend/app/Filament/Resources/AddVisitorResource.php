@@ -15,7 +15,8 @@ class AddVisitorResource extends Resource
     protected static ?string $model = AddVisitor::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
-    protected static ?string $navigationLabel = 'Add Visitor Manual';
+    protected static ?string $navigationGroup = 'Settings';
+    protected static ?string $navigationLabel = 'Add Visitors';
     protected static ?string $pluralModelLabel = 'Add Visitor';
 
     public static function form(Form $form): Form
