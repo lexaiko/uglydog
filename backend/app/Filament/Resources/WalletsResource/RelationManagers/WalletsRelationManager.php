@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\PenggunaResource\RelationManagers;
+namespace App\Filament\Resources\WalletsResource\RelationManagers;
 
 use Filament\Forms;
 use Filament\Tables;

@@ -12,41 +12,69 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault()
     try {
-      // Step 1: Ambil CSRF token dulu
+      // Ambil CSRF token dulu
       await api.get('/sanctum/csrf-cookie')
 
-      // Step 2: Kirim login ke backend
-      await api.post('/auth/login', {
-        email,
-        password,
-      })
+      // Kirim login
+      await api.post('/auth/login', { email, password })
 
-      console.log('Login sukses, redirect ke dashboard')
+      // Redirect ke dashboard
       navigate('/dashboard')
-
     } catch (err) {
       console.error(err)
       setError('Login gagal. Cek email/password atau backend.')
     }
   }
 
+  const handleGoogleLogin = () => {
+    window.location.href = 'http://localhost:8000/auth/google/redirect'
+  }
+
   return (
-    <form onSubmit={handleLogin} className="max-w-md mx-auto p-4 space-y-3">
-      <input
-        type="email"
-        placeholder="Email"
-        onChange={(e) => setEmail(e.target.value)}
-        className="w-full p-2 border rounded"
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        onChange={(e) => setPassword(e.target.value)}
-        className="w-full p-2 border rounded"
-      />
-      <button type="submit" className="bg-blue-500 text-white p-2 rounded">Login</button>
-      {error && <p className="text-red-500">{error}</p>}
-    </form>
+    <div className="max-w-md mx-auto mt-10 p-4 border rounded shadow space-y-4">
+      <h2 className="text-xl font-bold text-center">Login</h2>
+
+      <form onSubmit={handleLogin} className="space-y-3">
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full p-2 border rounded"
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full p-2 border rounded"
+          required
+        />
+        <button
+          type="submit"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white p-2 rounded"
+        >
+          Login
+        </button>
+      </form>
+
+      <div className="text-center text-gray-500">atau</div>
+
+      <button
+        type="button"
+        onClick={handleGoogleLogin}
+        className="w-full bg-red-500 hover:bg-red-600 text-white p-2 rounded flex items-center justify-center gap-2"
+      >
+        <img
+          src="https://www.svgrepo.com/show/475656/google-color.svg"
+          alt="Google"
+          className="w-5 h-5"
+        />
+        Login dengan Google
+      </button>
+
+      {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+    </div>
   )
 }
-

@@ -3,6 +3,7 @@
 use App\Filament\Pages\Login;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\GameController;
+use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\WalletController;
 use App\Http\Controllers\Auth\GameProfileController;
@@ -23,6 +24,9 @@ Route::middleware('web')->prefix('auth')->group(function () {
     Route::post('/wallets', [WalletController::class, 'store'])->middleware('auth:pengguna');
     Route::put('/wallets', [WalletController::class, 'update'])->middleware('auth:pengguna');
     Route::delete('/wallets/{id}', [WalletController::class, 'destroy'])->middleware('auth:pengguna');
+
+    Route::get('/google/redirect', [GoogleController::class, 'redirectToGoogle']);
+    Route::get('/google/callback', [GoogleController::class, 'handleGoogleCallback']);
 
     Route::get('/game', [GameController::class, 'index'])->middleware('auth:pengguna');
     Route::put('/game/profile', [GameProfileController::class, 'updateProfile'])->middleware('auth:pengguna');

@@ -11,7 +11,7 @@ use Filament\Resources\Resource;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use App\Filament\Resources\PenggunaResource\Pages;
-use App\Filament\Resources\PenggunaResource\RelationManagers\WalletsRelationManager;
+use App\Filament\Resources\WalletsResource\RelationManagers\WalletsRelationManager;
 
 class PenggunaResource extends Resource
 {

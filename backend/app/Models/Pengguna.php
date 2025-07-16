@@ -50,6 +50,11 @@ class Pengguna extends Authenticatable
     public function wallets()
 {
     return $this->hasMany(Wallet::class, 'pengguna_id'); // atau 'pengguna_id', sesuai DB-mu
+
+}
+public function socialAccounts()
+{
+    return $this->hasMany(SocialitePengguna::class, 'user_id');
 }
 
 
