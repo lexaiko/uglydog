@@ -36,6 +36,7 @@ Route::middleware('web')->prefix('auth')->group(function () {
 
 Route::prefix('api/leaderboard')->group(function () {
     Route::get('/daily', [LeaderboardsController::class, 'getdailyLeaderboard']);
+    Route::get('/dev-daily', [LeaderboardsController::class, 'getDevDailyLeaderboard']); // DEV: leaderboard tanpa cache
     Route::get('/my-position', [LeaderboardsController::class, 'getUserPosition'])->middleware('auth:pengguna');
 });
 

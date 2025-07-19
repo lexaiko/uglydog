@@ -160,4 +160,8 @@ public function users(Request $request)
 
     return $resource = new ProfileResource($user);
 }
+public function me(Request $request)
+{
+    return response()->json($request->user('pengguna'));
+}
 }

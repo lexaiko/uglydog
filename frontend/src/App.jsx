@@ -4,9 +4,10 @@ import { useEffect } from 'react';
 import Dashboard from './pages/Dashboard';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
-import Login from './pages/login';
+import Login from './pages/Login';
 import GameProfile from './pages/GameProfile';
 import GameSession from './pages/GameSession';
+import UglyDogGameLayout from './UglyDogGameLayout';
 
 function App() {
   useEffect(() => {
@@ -41,6 +42,8 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/game/profile" element={<GameProfile />} />
         <Route path="/game" element={<GameSession />} />
+        <Route path="/ugly-dog-game" element={<UglyDogGameLayout />} />
+        <Route path="/uglydog" element={<UglyDogGameLayout />} />
         {/* Tambah route lain di sini */}
       </Routes>
       <div className="fixed bottom-0 right-0 m-4">

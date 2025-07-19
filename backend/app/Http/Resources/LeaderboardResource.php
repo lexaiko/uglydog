@@ -19,6 +19,7 @@ class LeaderboardResource extends JsonResource
             'user_id' => $this->user_id,
             'name' => $this->pengguna->name ?? null,
             'total_score' => $this->total_score,
+            'best_session' => $this->best_session, // expose highest score
             'achievements' => $this->achievements ?? [],
         ];
     }

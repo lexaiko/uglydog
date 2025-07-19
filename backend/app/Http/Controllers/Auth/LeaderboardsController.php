@@ -29,4 +29,20 @@ class LeaderboardsController extends Controller
         return LeaderboardResource::collection($leaderboard);
     }
 
+    // Endpoint leaderboard tanpa cache untuk development/testing
+    public function getDevDailyLeaderboard()
+    {
+        $leaderboard = UserGameProfile::with('pengguna')
+            ->orderByDesc('total_score')
+            ->take(100)
+            ->get();
+
+        // Tambahkan peringkat manual
+        $leaderboard->each(function ($item, $index) {
+            $item->rank = $index + 1;
+        });
+
+        return LeaderboardResource::collection($leaderboard);
+    }
+
 }
