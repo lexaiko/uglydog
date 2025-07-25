@@ -234,183 +234,58 @@ export default function NativeUglyDogGame() {
   // 🚨 ULTRA-ISOLATED Break Popup Remover - PROTECTED FROM REACT
   const hideBreakPopup = useCallback(() => {
     // 🔒 CHECK GLOBAL PROTECTION FLAG
-    if (!window.UGLYDOG_BREAK_ACTIVE) {
-      // DEBUG LOG REMOVED
-  return (
-    <div
-      className="native-uglydog-game"
-      style={{
-        maxWidth: 420,
-        margin: '32px auto',
-        padding: '24px 16px 32px 16px',
-        background: '#232323',
-        borderRadius: 18,
-        boxShadow: '0 4px 32px rgba(0,0,0,0.18)',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: 28,
-        minHeight: 600,
-      }}
-    >
-      {/* Hero Section: Heading & Subheading */}
-      <section style={{ width: '100%', textAlign: 'center', marginBottom: 64 }}>
-        <h1 style={{ fontSize: '2.1rem', fontWeight: 800, color: '#86FF00', margin: 0, marginBottom: 10, letterSpacing: '0.01em', textShadow: '0 2px 12px #18181b' }}>
-          UglyDog Clicker
-        </h1>
-        <div style={{ fontSize: '1.05rem', color: '#fff', opacity: 0.88, fontWeight: 500, marginBottom: 0 }}>
-          Fast. Fun. Competitive. Can you beat the leaderboard?
-        </div>
-      </section>
-
-      {showMissAlert && <MissAlert />}
-
-      {/* Leaderboard Section */}
-      <section style={{ width: '100%', marginBottom: 18 }}>
-        {/* ...Leaderboard UI... */}
-      </section>
-
-
-      {/* Game Canvas Section */}
-      <section
-        className="game-canvas"
-        style={{
-          width: '100%',
-          minHeight: 260,
-          background: '#18181b',
-          borderRadius: 14,
-          marginBottom: 18,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          position: 'relative',
-          overflow: 'hidden',
-        }}
-      >
-        {/* Floating icon and text when game is not active */}
-        {!gameState.gameActive && (
-          <div
-            style={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -60%)',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              zIndex: 10,
-              pointerEvents: 'none',
-              userSelect: 'none',
-            }}
-          >
-            <span style={{ fontSize: 54, marginBottom: 10, filter: 'drop-shadow(0 2px 8px #18181b)' }} role="img" aria-label="dog">🐶</span>
-            <span style={{
-              fontSize: '1.25rem',
-              fontWeight: 700,
-              color: '#fff',
-              textShadow: '0 2px 12px #18181b',
-              background: 'rgba(24,24,27,0.85)',
-              borderRadius: 8,
-              padding: '6px 18px',
-              marginBottom: 4,
-              letterSpacing: '0.01em',
-              opacity: 0.96,
-            }}>
-              Ready to start?
-            </span>
-          </div>
-        )}
-        {/* ...Game Canvas Content (dog, traps, dsb)... */}
-      </section>
-
-      {/* Tombol Start Game & Info Auth */}
-      <section style={{ width: '100%', marginBottom: 8, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
-        <button
-          onClick={startGame}
-          disabled={!isAuthenticated}
-          style={{
-            padding: '10px 32px',
-            fontSize: 18,
-            borderRadius: 8,
-            background: isAuthenticated ? '#86FF00' : '#888',
-            color: '#18181b',
-            fontWeight: 700,
-            border: 'none',
-            cursor: isAuthenticated ? 'pointer' : 'not-allowed',
-            marginBottom: 4,
-          }}
-        >
-          Start Game
-        </button>
-        {!isAuthenticated && !loading && (
-          <div style={{ color: '#ef4444', marginTop: 4, fontWeight: 500 }}>Login dulu untuk main!</div>
-        )}
-      </section>
-
-      {/* ...Section lain jika ada... */}
-    </div>
-  )
-      const startTime = window.UGLYDOG_BREAK_START_TIME || parseInt(popupElement.getAttribute('data-start-time') || '0')
-      const endTime = Date.now()
-      const totalVisibleMs = endTime - startTime
-      const totalVisibleSeconds = (totalVisibleMs / 1000).toFixed(1)
-      
-      // DEBUG LOGS REMOVED
-      
-      // Smooth fade out animation before removal - QUICK AND CLEAN
-      popupElement.style.animation = 'section-popup-out 0.2s ease-in forwards'
-      setTimeout(() => {
-        if (popupElement.parentNode) {
-          popupElement.parentNode.removeChild(popupElement)
-        }
-      }, 200)
-      
-      // 🔒 CLEAR GLOBAL PROTECTION FLAG
-      window.UGLYDOG_BREAK_ACTIVE = false
-      window.UGLYDOG_BREAK_START_TIME = null
-      
-      console.log(`🖥️ [TERMINAL DEBUG] 🔒 Global protection flag cleared`)
-      console.log('🚀 STANDALONE: Break popup removed from section overlay')
-    } else {
-      console.log(`🖥️ [TERMINAL DEBUG] ⚠️ hideBreakPopup called but popup not found in DOM!`)
+    const popupElement = document.getElementById('level-up-break-portal');
+    if (!popupElement) {
+      return;
     }
+    // Smooth fade out animation before removal - QUICK AND CLEAN
+    popupElement.style.animation = 'section-popup-out 0.2s ease-in forwards';
+    setTimeout(() => {
+      if (popupElement.parentNode) {
+        popupElement.parentNode.removeChild(popupElement);
+      }
+      // 🔒 CLEAR GLOBAL PROTECTION FLAG
+      window.UGLYDOG_BREAK_ACTIVE = false;
+      window.UGLYDOG_BREAK_START_TIME = null;
+      // ...
+      // ...
+    }, 200);
   }, [])
 
   // Clear all timers - ENHANCED UTILITY FUNCTION (MOVED UP TO FIX INITIALIZATION ERROR)
   const clearAllTimers = useCallback(() => {
-    console.log('🧹 Clearing all timers...')
+    // ...
     // Clear auto-miss timer
     if (autoMissTimerRef.current) {
       clearTimeout(autoMissTimerRef.current)
       autoMissTimerRef.current = null
-      console.log('🧹 Cleared autoMissTimerRef')
+      // ...
     }
     // Clear countdown interval
     if (countdownIntervalRef.current) {
       clearInterval(countdownIntervalRef.current)
       countdownIntervalRef.current = null
-      console.log('🧹 Cleared countdownIntervalRef')
+      // ...
     }
     setCountdown(0)
     setTimeout(() => {
-      console.log('✅ Timer cleanup completed')
+      // ...
     }, 10)
   }, [])
 
   // Separate function to clear ONLY break timer without affecting break state - STANDALONE VERSION
   const clearBreakTimer = useCallback(() => {
-    console.log(`🧹 clearBreakTimer called`)
+    // ...
     if (levelUpBreakTimerRef.current) {
       clearInterval(levelUpBreakTimerRef.current)
       levelUpBreakTimerRef.current = null
-      console.log('🧹 Cleared levelUpBreakTimerRef')
+      // ...
     }
   }, [])
 
   // Full cleanup function for game stop/restart only - ENHANCED CLEANUP
   const clearAllTimersAndStates = useCallback(() => {
-    console.log('🧹 FULL CLEANUP: Clearing all timers and states...')
+    // ...
     clearAllTimers()
     clearBreakTimer()
     setBreakCountdown(0)
@@ -419,7 +294,7 @@ export default function NativeUglyDogGame() {
     setDogTimeoutState(false)
     setCountdown(0)
     hideBreakPopup()
-    console.log('✅ Full cleanup completed')
+    // ...
   }, [clearAllTimers, clearBreakTimer, hideBreakPopup])
 
   // Get game difficulty settings for SPAWN-DISAPPEAR MODE - SIMPLIFIED (No traps!)
@@ -464,18 +339,11 @@ export default function NativeUglyDogGame() {
   // Handle auto-miss when UglyDog disappears - RACE CONDITION PROTECTED
   const handleAutoMiss = useCallback(() => {
     if (!gameActiveRef.current || !dogClickableRef.current || levelUpBreakRef.current) {
-      console.log('🚫 handleAutoMiss blocked - game state check failed:', {
-        gameActive: gameActiveRef.current,
-        dogClickable: dogClickableRef.current,
-        levelUpBreak: levelUpBreakRef.current
-      })
       return
     }
     if (!autoMissTimerRef.current) {
-      console.log('🚫 handleAutoMiss blocked - timer was already cleared')
       return
     }
-    console.log('💨 UglyDog disappeared - counting as miss!')
     clearAllTimers()
     setDogClickable(false)
     setDogTimeoutState(true)
@@ -485,19 +353,19 @@ export default function NativeUglyDogGame() {
       let newHealth = prev.health
       let newScore = prev.score
       if (newMisses >= 3) {
-        console.log('3 misses reached, reducing health')
+        // ...
         newHealth = prev.health - 1
         newScore = Math.max(0, prev.score - 10)
         if (newHealth <= 0) {
-          console.log('💀 GAME OVER! All health depleted!')
+          // ...
           stopGame()
           return { ...prev, misses: 0, health: 0, score: newScore }
         } else {
-          console.log(`❤️ Health reduced to ${newHealth}. Player gets fresh 3 misses!`)
+          // ...
         }
         return { ...prev, misses: 0, health: newHealth, score: newScore }
       } else {
-        console.log(`Miss count: ${newMisses}/3`)
+        // ...
         return { ...prev, misses: newMisses }
       }
     })
@@ -535,7 +403,7 @@ export default function NativeUglyDogGame() {
     setDogTimeoutState(false);
     setDogPosition(newDogPosition);
     setDogClickable(true);
-    dogActiveRef.current = true;
+    // dogActiveRef.current = true; // DIHAPUS, ga dipake bro
     setCountdown(0);
     const nextDogId = currentDogId + 1;
     setCurrentDogId(nextDogId);
@@ -544,22 +412,22 @@ export default function NativeUglyDogGame() {
     const autoMissTimeoutId = setTimeout(() => {
       // Cek dogId snapshot pakai ref
       if (nextDogId !== currentDogIdRef.current) {
-        console.log('🚫 Auto-miss timer fired for old dogId, ignoring!')
+        // ...
         return
       }
       if (!gameActiveRef.current) {
-        console.log('🚫 Auto-miss timer fired but game is inactive - ignoring')
+        // ...
         return
       }
       if (!dogClickableRef.current) {
-        console.log('🚫 Auto-miss timer fired but dog not clickable - ignoring')
+        // ...
         return
       }
       if (levelUpBreakRef.current) {
-        console.log('🚫 Auto-miss timer fired but level break active - ignoring')
+        // ...
         return
       }
-      console.log('⏰ Auto-miss timer fired - executing handleAutoMiss')
+      // ...
       handleAutoMiss()
     }, disappearTime)
     autoMissTimerRef.current = autoMissTimeoutId
@@ -568,7 +436,7 @@ export default function NativeUglyDogGame() {
     return () => {
       if (autoMissTimeoutId) {
         clearTimeout(autoMissTimeoutId)
-        console.log(`🧹 Cleanup: Cleared autoMissTimer on unmount: ${autoMissTimeoutId}`)
+        // ...
       }
     }
 
@@ -576,8 +444,8 @@ export default function NativeUglyDogGame() {
 
   // Start level-up break sequence - STANDALONE POPUP VERSION
   const startLevelUpBreak = useCallback((newLevel) => {
-    console.log(`🎉 LEVEL UP! Starting 5-second break before Level ${newLevel}`)
-    console.log(`🔍 Break function called, setting levelUpBreak to true...`)
+    // ...
+    // ...
     
     // Clear game timers but NOT break states!
     clearAllTimers()
@@ -587,7 +455,7 @@ export default function NativeUglyDogGame() {
     setBreakCountdown(5)
     setDogClickable(false)
     
-    console.log(`🔍 levelUpBreak state should be true now`)
+    // ...
     
     // Show standalone popup immediately
     showBreakPopup(newLevel, 5)
@@ -597,50 +465,48 @@ export default function NativeUglyDogGame() {
     let timerActive = true // Prevent external clearing
     const timerStartTime = Date.now()
     
-    console.log(`🖥️ [TERMINAL DEBUG] ⏰ Break timer STARTED at ${new Date().toLocaleTimeString()}.${String(timerStartTime % 1000).padStart(3, '0')}`)
-    console.log(`🖥️ [TERMINAL DEBUG] ⏰ Timer will run for 5 seconds, updating every 1000ms`)
+    // ...
+    // ...
     
     const countdownTimer = setInterval(() => {
       if (!timerActive) {
         const stopTime = Date.now()
         const elapsedMs = stopTime - timerStartTime
-        console.log(`🖥️ [TERMINAL DEBUG] ⚠️ Timer was stopped externally after ${(elapsedMs/1000).toFixed(1)}s`)
+        // ...
         return
       }
-      
+
       countdownRemaining--
       const currentTime = Date.now()
       const elapsedMs = currentTime - timerStartTime
       const elapsedSeconds = (elapsedMs / 1000).toFixed(1)
-      
-      console.log(`🖥️ [TERMINAL DEBUG] ⏰ Timer tick: ${countdownRemaining}s remaining | Elapsed: ${elapsedSeconds}s`)
-      
+
+      // ...
+
       // Update countdown in DOM directly (no React state conflicts!)
       updateBreakCountdown(countdownRemaining)
-      
+
       if (countdownRemaining <= 0) {
         const endTime = Date.now()
         const totalElapsedMs = endTime - timerStartTime
         const totalElapsedSeconds = (totalElapsedMs / 1000).toFixed(1)
-        
-        console.log(`�️ [TERMINAL DEBUG] ⏰ Break countdown COMPLETE! Total time: ${totalElapsedSeconds}s`)
-        console.log(`🖥️ [TERMINAL DEBUG] ⏰ Cleaning up timer and resuming game...`)
-        
+
+        // ...
+        // ...
+
         timerActive = false
-clearInterval(countdownTimer)
-        
-        // Hide popup and resume game
+        clearInterval(countdownTimer)
+
+        // Hide popup dulu, abis itu baru set state supaya ga race condition
         hideBreakPopup()
-        
-        // Clean end of break - FIX: useEffect watcher approach
         setTimeout(() => {
           setLevelUpBreak(false)
           setBreakCountdown(0)
-          // 🚨 FIX: Reset dogClickable to true INSIDE spawnUglyDog, not here
+          // 🚨 FIX: Reset dogClickable to true INSIDE spawnUglyDog, not di sini
           if (gameState.gameActive) {
             spawnUglyDog()
           }
-        }, 200)
+        }, 350) // kasih jeda biar animasi popup ilang dulu
       }
     }, 1000)
     
@@ -687,11 +553,11 @@ clearInterval(countdownTimer)
   const stopGame = useCallback(() => {
     // 🔧 GUARD: Prevent multiple calls to stopGame
     if (!gameState.gameActive) {
-      console.log('⚠️ stopGame() called but game already inactive - ignoring')
+      // ...
       return
     }
     
-    console.log('🛑 Stopping Spawn-Disappear Mode game...')
+    // ...
     
     // ⚡ IMMEDIATE PROTECTION: Set gameActive to false FIRST
     setGameState(prev => {
@@ -741,21 +607,16 @@ clearInterval(countdownTimer)
     e.stopPropagation()
     // 🔒 ULTRA-STRICT GUARDS: Prevent double execution and race conditions
     if (!gameState.gameActive || !dogClickable || levelUpBreak) {
-      console.log('🚫 Click blocked:', { 
-        gameActive: gameState.gameActive, 
-        dogClickable, 
-        levelUpBreak 
-      })
       return
     }
-    console.log('🎯 UglyDog caught! +1 Score, UglyDog disappears!')
+    // ...
     // ⚡ RACE CONDITION FIX: Immediate timer clearance and state protection
     const currentAutoMissTimer = autoMissTimerRef.current
     clearAllTimers()
     // 🛡️ ADDITIONAL PROTECTION: Force clear specific timer if exists
     if (currentAutoMissTimer) {
       clearTimeout(currentAutoMissTimer)
-      console.log(`🛡️ Force cleared autoMissTimer: ${currentAutoMissTimer}`)
+      // ...
     }
     // Langsung disable klik & animasi fade out
     setDogClickable(false)
@@ -766,21 +627,17 @@ clearInterval(countdownTimer)
       ...prev,
       score: newScore
     }))
-    console.log(`📊 Score updated to: ${newScore}`)
+    // ...
     // Cek level up langsung abis update score
     const newLevelForScore = GAME_LEVELS.find(level => 
       newScore >= level.minScore && newScore <= level.maxScore
     ) || GAME_LEVELS[GAME_LEVELS.length - 1]
-    console.log(`🔍 Level check after click: current=${previousLevel}, newForScore=${newLevelForScore.level}, score=${newScore}`)
-    console.log(`🔍 GAME_LEVELS[1]:`, GAME_LEVELS[1]) // Debug level 2 definition
+    // ...
+    // ...
     if (newLevelForScore.level > previousLevel) {
-      console.log(`🎉 IMMEDIATE LEVEL UP: ${previousLevel} → ${newLevelForScore.level}`)
-      console.log(`🎉 Triggering level up break...`)
       setPreviousLevel(newLevelForScore.level)
       startLevelUpBreak(newLevelForScore.level)
       return // Jangan respawn langsung, biar break yang handle
-    } else {
-      console.log(`🔍 No level up yet. Current: ${previousLevel}, New: ${newLevelForScore.level}`)
     }
     // Update stats
     setGameStats(prev => ({
@@ -802,7 +659,6 @@ clearInterval(countdownTimer)
   const handleMissClick = useCallback(() => {
     if (!gameState.gameActive || levelUpBreak) return
 
-    console.log('Miss click registered')
     setShowMissAlert(true)
     setTimeout(() => setShowMissAlert(false), 600)
     const newMisses = gameState.misses + 1
@@ -810,7 +666,6 @@ clearInterval(countdownTimer)
     let newScore = gameState.score
 
     if (newMisses >= 3) {
-      console.log('3 misses reached, reducing health')
       newHealth = gameState.health - 1
       newScore = Math.max(0, gameState.score - 10)
       // 🔧 FIXED: Only game over when health becomes 0 or less  
@@ -901,23 +756,11 @@ clearInterval(countdownTimer)
   // --- Kirim skor ke backend saat game over (mengikuti UglyDogGameLayout.jsx) ---
   const submitScore = async (score) => {
     try {
-      // Ikuti cara UglyDogGameLayout.jsx: pakai endpoint relatif, biar proxy Next.js bisa jalan
-      const response = await fetch('/api/auth/game/saved', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ session_score: score })
-      })
-      if (response.ok) {
-        console.log('[DEBUG] Skor berhasil dikirim ke backend:', score)
-        fetchLeaderboard()
-      } else {
-        const errText = await response.text()
-        console.error('[DEBUG] Backend response error:', response.status, errText)
-      }
+      await api.post('/auth/game/saved', { session_score: score });
+      console.log('[DEBUG] Skor berhasil dikirim ke backend:', score);
+      fetchLeaderboard();
     } catch (error) {
-      console.error('[DEBUG] Gagal kirim skor ke backend:', error)
+      console.error('[DEBUG] Gagal kirim skor ke backend:', error);
     }
   }
 

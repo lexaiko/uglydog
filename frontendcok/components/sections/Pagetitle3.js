@@ -29,7 +29,7 @@ export default function Pagetitle3() {
     return (
         <>
 
-            <section id="home"className="page-title st3">
+            <section id="home" className="page-title st3" style={{marginBottom: 72}}>
                 <div className="overlay">
                 </div>
                 <div className="swiper-container slider-main">
