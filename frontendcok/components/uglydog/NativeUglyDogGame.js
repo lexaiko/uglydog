@@ -672,7 +672,9 @@ export default function NativeUglyDogGame() {
       if (newHealth <= 0) {
         stopGame()
         return
-      } else {
+      }
+      
+      // Health reduced but not game over
       setGameState(prev => ({
         ...prev,
         misses: 0,        // Reset misses back to 0 for next round
@@ -680,6 +682,7 @@ export default function NativeUglyDogGame() {
         score: newScore
       }))
     } else {
+      // Just increment misses, no health reduction
       setGameState(prev => ({
         ...prev,
         misses: newMisses
