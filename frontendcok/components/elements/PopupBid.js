@@ -30,11 +30,8 @@ export default function PopupBid({ isConnect, handleConnect }) {
     
             // Refresh halaman agar header ter-update
             window.location.reload()
-    
-            console.log('Login sukses')
-    
+            
         } catch (err) {
-            console.error(err)
             setError('Login gagal. Cek email/password atau backend.')
         }
     }    

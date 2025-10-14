@@ -19,7 +19,6 @@ export function AuthProvider({ children }) {
       const res = await api.get('/auth/users')
       setUser(res.data.data) // Perbaikan: ambil user dari res.data.data
     } catch (error) {
-      console.error('User not authenticated:', error)
       setUser(null)
     } finally {
       setLoading(false)
@@ -36,7 +35,6 @@ export function AuthProvider({ children }) {
       await checkUser() // Update user state after successful login
       return { success: true }
     } catch (err) {
-      console.error(err)
       return { success: false, error: 'Login gagal. Cek email/password atau backend.' }
     }
   }
@@ -49,7 +47,7 @@ export function AuthProvider({ children }) {
       setUser(null)
       router.push('/login')
     } catch (error) {
-      console.error('Logout gagal:', error)
+      // Silently handle logout error
     }
   }
 

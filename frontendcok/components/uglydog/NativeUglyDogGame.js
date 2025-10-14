@@ -670,12 +670,9 @@ export default function NativeUglyDogGame() {
       newScore = Math.max(0, gameState.score - 10)
       // 🔧 FIXED: Only game over when health becomes 0 or less  
       if (newHealth <= 0) {
-        console.log('💀 GAME OVER! All health depleted!')
         stopGame()
         return
       } else {
-        console.log(`❤️ Health reduced to ${newHealth}. Player gets fresh 3 misses!`)
-      }
       setGameState(prev => ({
         ...prev,
         misses: 0,        // Reset misses back to 0 for next round
@@ -683,7 +680,6 @@ export default function NativeUglyDogGame() {
         score: newScore
       }))
     } else {
-      console.log(`Miss count: ${newMisses}/3`)
       setGameState(prev => ({
         ...prev,
         misses: newMisses
@@ -757,10 +753,9 @@ export default function NativeUglyDogGame() {
   const submitScore = async (score) => {
     try {
       await api.post('/auth/game/saved', { session_score: score });
-      console.log('[DEBUG] Skor berhasil dikirim ke backend:', score);
       fetchLeaderboard();
     } catch (error) {
-      console.error('[DEBUG] Gagal kirim skor ke backend:', error);
+      // Silently handle score submission error
     }
   }
 
@@ -774,7 +769,6 @@ export default function NativeUglyDogGame() {
       const leaderboardData = Array.isArray(res.data.data) ? res.data.data : Array.isArray(res.data) ? res.data : []
       setLeaderboard(leaderboardData.slice(0, 5))
     } catch (error) {
-      console.error('Leaderboard fetch error:', error)
       setLeaderboard([])
     }
   }
@@ -797,8 +791,6 @@ export default function NativeUglyDogGame() {
     return () => {
       // 🔒 CRITICAL: Check global protection flag before any cleanup!
       if (window.UGLYDOG_BREAK_ACTIVE) {
-        console.log('🖥️ [TERMINAL DEBUG] 🔒 Component unmounting but break is PROTECTED - NO CLEANUP!')
-        console.log('🖥️ [TERMINAL DEBUG] 🔒 Preserving popup and timer due to global protection flag')
         // Only clear non-break timers, NEVER touch break popup/timer
         if (autoMissTimerRef.current) {
           clearTimeout(autoMissTimerRef.current)
@@ -812,12 +804,10 @@ export default function NativeUglyDogGame() {
       }
       // CRITICAL: Only clear timers, NOT popup during break!
       if (levelUpBreak && breakCountdown > 0) {
-        console.log('⚠️ Component unmounting during break - preserving popup and timer')
         // Only clear non-break timers, let break continue
         clearAllTimers()
         return
       }
-      console.log('Component unmounting, cleaning up all timers and effects...')
       // Clear ALL timers and states (this will also hide popup)
       clearAllTimersAndStates()
       // Clean up any remaining visual effects
@@ -854,13 +844,11 @@ export default function NativeUglyDogGame() {
     return () => {
       // 🔒 CRITICAL: Check global protection flag first!
       if (window.UGLYDOG_BREAK_ACTIVE) {
-        console.log('🖥️ [TERMINAL DEBUG] 🔒 Final cleanup blocked - break is PROTECTED!')
         return
       }
       
       // ONLY clean up popup if NOT during active break
       if (!levelUpBreak || breakCountdown <= 0) {
-        console.log('🧹 Cleaning up popup on final unmount')
         hideBreakPopup()
       }
     }
@@ -2079,7 +2067,6 @@ export default function NativeUglyDogGame() {
             <div className="game-canvas" onClick={handleMissClick}>
               {gameState.gameActive ? (
                 <>
-                  {/* DEBUG: Show level break state */}
                   {process.env.NODE_ENV === 'development' && (
                     <div style={{
                       position: 'absolute',
@@ -2092,7 +2079,7 @@ export default function NativeUglyDogGame() {
                       fontSize: '10px',
                       zIndex: 50
                     }}>
-                      DEBUG: break={levelUpBreak.toString()}, countdown={breakCountdown}
+                      break={levelUpBreak.toString()}, countdown={breakCountdown}
                     </div>
                   )}
 
@@ -2234,7 +2221,6 @@ export default function NativeUglyDogGame() {
                 
                 <button
                   onClick={() => {
-                    console.log('🧪 TEST: Forcing level up...')
                     setGameState(prev => ({ ...prev, score: 49 }))
                   }}
                   style={{ 
@@ -2250,7 +2236,7 @@ export default function NativeUglyDogGame() {
                     <path d="M9 11H1l6-6 6 6z"/>
                     <path d="M15 13v12l6-6-6-6z"/>
                   </svg>
-                  Test
+                  Level 1
                 </button>
               </div>
             )}

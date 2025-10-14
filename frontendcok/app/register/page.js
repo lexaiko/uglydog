@@ -64,7 +64,6 @@ export default function Register() {
       toast.success('Registrasi berhasil! Silakan login')
       router.push('/login')
     } catch (error) {
-      console.error('Registration error:', error)
       toast.error(error.message || 'Terjadi kesalahan. Silakan coba lagi.')
     } finally {
       setIsLoading(false)

@@ -93,10 +93,8 @@ export default function UglyDogGameLayout() {
   const fetchLeaderboard = useCallback(async () => {
     try {
       const res = await api.get(LEADERBOARD_ENDPOINT);
-      console.log('Leaderboard API response:', res.data); // DEBUG
-      setLeaderboard(Array.isArray(res.data.data) ? res.data.data : []);
+        setLeaderboard(Array.isArray(res.data.data) ? res.data.data : []);
     } catch (err) {
-      console.error('Leaderboard fetch error:', err); // DEBUG
       setLeaderboard([]);
     }
   }, []);
@@ -109,11 +107,9 @@ export default function UglyDogGameLayout() {
   const saveScoreToBackend = async (score) => {
     try {
       await api.post('/auth/game/saved', { session_score: score });
-      console.log('[DEBUG] Skor berhasil dikirim ke backend:', score);
       fetchLeaderboard(); // Refresh leaderboard setelah submit skor
     } catch (err) {
-      console.error('[DEBUG] Gagal kirim skor ke backend:', err);
-    }
+      }
   };
 
   const stopGame = useCallback(() => {
@@ -268,7 +264,6 @@ export default function UglyDogGameLayout() {
 
   // --- Start Game ---
   const startGame = () => {
-    console.log('isAuthenticated:', isAuthenticated, 'user:', user, 'loading:', loading);
     if (!isAuthenticated) {
       router.push('/login');
       return;

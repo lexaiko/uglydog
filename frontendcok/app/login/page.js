@@ -35,7 +35,6 @@ export default function Login() {
         toast.error(result.error || 'Login gagal. Silakan coba lagi.')
       }
     } catch (error) {
-      console.error('Login error:', error)
       toast.error('Terjadi kesalahan. Silakan coba lagi.')
     } finally {
       setIsLoading(false)
