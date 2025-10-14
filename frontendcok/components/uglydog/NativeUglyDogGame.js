@@ -2097,7 +2097,7 @@ export default function NativeUglyDogGame() {
                     onClick={dogClickable ? handleUglyDogClick : undefined}
                   >
                     <img 
-                      src="/assets/images/img-game/ugglydog-original.png" 
+                      src="/assets/images/uglydog-original.png" 
                       alt="UglyDog"
                       style={{
                         width: '60px',
@@ -2220,26 +2220,6 @@ export default function NativeUglyDogGame() {
                     <rect x="14" y="4" width="4" height="16"/>
                   </svg>
                   Stop
-                </button>
-                
-                <button
-                  onClick={() => {
-                    setGameState(prev => ({ ...prev, score: 49 }))
-                  }}
-                  style={{ 
-                    fontSize: '10px', 
-                    padding: '4px 8px',
-                    background: '#fbbf24',
-                    color: 'black',
-                    border: 'none',
-                    borderRadius: '4px'
-                  }}
-                >
-                  <svg style={{display: 'inline-block', width: '10px', height: '10px', marginRight: '2px', verticalAlign: 'middle'}} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M9 11H1l6-6 6 6z"/>
-                    <path d="M15 13v12l6-6-6-6z"/>
-                  </svg>
-                  Level 1
                 </button>
               </div>
             )}
