@@ -24,10 +24,7 @@ function Register() {
 
       const res = await api.post('/auth/register', form);
       setMessage('Registrasi berhasil!');
-
-      console.log('Token:', res.data.token); // Simpan token di localStorage kalau mau
     } catch (err) {
-      console.error(err);
       setMessage('Registrasi gagal. Coba lagi.');
     }
   };

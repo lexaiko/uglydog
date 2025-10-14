@@ -27,7 +27,6 @@ const GameProfile = () => {
           achievements: Array.isArray(data.achievements) ? data.achievements : [],
         });
 
-        console.log('Profile JSON:', data);
         setError(null);
       } catch (err) {
         setError('Gagal memuat profil game: ' + (err.response?.data?.message || err.message));

@@ -88,10 +88,8 @@ export default function UglyDogGameLayout() {
   const fetchLeaderboard = useCallback(async () => {
     try {
       const res = await api.get(LEADERBOARD_ENDPOINT);
-      console.log('Leaderboard API response:', res.data); // DEBUG
       setLeaderboard(Array.isArray(res.data.data) ? res.data.data : []);
     } catch (err) {
-      console.error('Leaderboard fetch error:', err); // DEBUG
       setLeaderboard([]);
     }
   }, []);
@@ -104,11 +102,9 @@ export default function UglyDogGameLayout() {
   const saveScoreToBackend = async (score) => {
     try {
       await api.post('/auth/game/saved', { session_score: score });
-      console.log('[DEBUG] Skor berhasil dikirim ke backend:', score);
       fetchLeaderboard(); // Refresh leaderboard setelah submit skor
     } catch (err) {
-      console.error('[DEBUG] Gagal kirim skor ke backend:', err);
-    }
+      }
   };
 
   const stopGame = useCallback(() => {
@@ -291,11 +287,9 @@ export default function UglyDogGameLayout() {
     const checkLogin = async () => {
       try {
         const res = await api.get('/auth/me');
-        console.log('[DEBUG] /auth/me response:', res.data); // DEBUG
         setIsLoggedIn(true);
       } catch (err) {
-        console.error('[DEBUG] /auth/me error:', err);
-        setIsLoggedIn(false);
+          setIsLoggedIn(false);
       }
     };
     checkLogin();
@@ -305,7 +299,6 @@ export default function UglyDogGameLayout() {
   const handleLoginSuccess = () => {
     setIsLoggedIn(true);
     // Tidak perlu localStorage
-    console.log('[DEBUG] Login success, set isLoggedIn true');
   };    
 
   // Handler logout
@@ -313,9 +306,8 @@ export default function UglyDogGameLayout() {
     setIsLoggedIn(false);
     try {
       await api.post('/auth/logout');
-      console.log('[DEBUG] Logout success, session cleared');
     } catch (err) {
-      console.error('[DEBUG] Logout error:', err);
+      // Silently handle logout error
     }
     setGameState(prev => ({ ...prev, gameActive: false, score: 0, misses: 0, health: 3, level: 1 }));
     setPreviousLevel(1);
@@ -342,21 +334,6 @@ export default function UglyDogGameLayout() {
         )}
       </header>
       <main className={styles['main-grid']}>
-        {/* TEST BUTTONS UNTUK LONCAT LEVEL */}
-        <div style={{ position: 'absolute', top: 80, right: 20, zIndex: 200 }}>
-          <button
-            onClick={() => setGameState(prev => ({ ...prev, score: 300 }))}
-            style={{ marginRight: 8, padding: '6px 16px', background: '#fbbf24', color: '#222', border: 'none', borderRadius: 6, fontWeight: 'bold', cursor: 'pointer' }}
-          >
-            Test Level 6
-          </button>
-          <button
-            onClick={() => setGameState(prev => ({ ...prev, score: 1000 }))}
-            style={{ padding: '6px 16px', background: '#8b5cf6', color: '#fff', border: 'none', borderRadius: 6, fontWeight: 'bold', cursor: 'pointer' }}
-          >
-            Test Level 10
-          </button>
-        </div>
         {/* Game Area */}
         <section className={styles['game-area']}>
           <div className={styles['game-canvas']} onClick={handleMissClick}>

@@ -21,14 +21,14 @@ function App() {
           localStorage.setItem('visitorTracked', 'yes');
         })
         .catch(err => {
-          console.error('Tracking failed:', err);
+          // Silently handle tracking errors
         });
     }
 
     fetch('http://localhost:8000/api/visitor/total')
       .then(res => res.json())
       .then(data => {
-        console.log('Total Visitors:', data.total);
+        // Silently handle visitor count
       });
   }, []);
 
@@ -46,16 +46,6 @@ function App() {
         <Route path="/uglydog" element={<UglyDogGameLayout />} />
         {/* Tambah route lain di sini */}
       </Routes>
-      <div className="fixed bottom-0 right-0 m-4">
-        <button
-          onClick={() => {
-            localStorage.removeItem('visitorTracked');
-            window.location.reload();
-          }}
-        >
-          Reset Visitor Tracker
-        </button>
-      </div>
     </BrowserRouter>
   );
 }

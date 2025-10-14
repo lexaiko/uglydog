@@ -39,7 +39,9 @@ export default function Dashboard() {
   const handleLogout = () => {
     api.post('/auth/logout')
       .then(() => navigate('/login'))
-      .catch(err => console.error(err))
+      .catch(err => {
+        // Silently handle logout error
+      })
   }
 
   const handleAddWallet = (e, provider) => {
@@ -52,7 +54,7 @@ export default function Dashboard() {
         window.location.reload()
       })
       .catch(err => {
-        console.error(`Gagal tambah wallet ${provider}`, err)
+        // Silently handle wallet addition error
       })
   }
 
@@ -75,7 +77,7 @@ export default function Dashboard() {
       alert('Wallet berhasil diubah')
       window.location.reload()
     }).catch(err => {
-      console.error('Gagal ubah wallet', err)
+      // Silently handle wallet update error
     })
   }
   const handleDeleteWallet = (walletId) => {
@@ -87,7 +89,6 @@ export default function Dashboard() {
       window.location.reload()
     })
     .catch(err => {
-      console.error('Gagal hapus wallet', err)
       alert('Gagal menghapus wallet')
     })
 }
@@ -104,7 +105,6 @@ export default function Dashboard() {
       alert('Profil berhasil diperbarui')
       window.location.reload()
     }).catch(err => {
-      console.error('Gagal update profil', err)
       alert(err.response?.data?.message || 'Terjadi kesalahan')
     })
   }

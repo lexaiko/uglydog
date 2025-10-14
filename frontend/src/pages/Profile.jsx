@@ -20,11 +20,10 @@ export default function Dashboard() {
   const handleLogout = () => {
     api.post('/auth/logout')
       .then(() => {
-        console.log('Logout sukses')
         navigate('/login')
       })
       .catch(err => {
-        console.error(err)
+        // Silently handle logout error
       })
   }
 
