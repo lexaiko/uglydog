@@ -3,77 +3,325 @@ import Link from "next/link"
 export default function Footer1() {
     return (
         <>
-
-            <footer id="footer">
-                <div className="footer-main">
-                    <div className="container">
-                        <div className="row">
-                            <div className="footer-logo">
-                                <div className="logo_footer">
-                                    <img src="/assets/images/logo/Group 2.png" alt="" />
+            <footer id="footer" className="integrated-footer">
+                <div className="container-fluid">
+                    <div className="row justify-content-center align-items-center">
+                        {/* Logo and Description Section */}
+                        <div className="col-12 col-lg-8 col-xl-6" data-aos="fade-up" data-aos-duration={800}>
+                            <div className="footer-brand-section">
+                                <div className="logo_footer" style={{
+                                    marginBottom: '30px',
+                                    filter: 'drop-shadow(0 4px 16px rgba(0,0,0,0.4))',
+                                    textAlign: 'center'
+                                }}>
+                                    <img
+                                        src="/assets/images/logo/Group 2.png"
+                                        alt="Ugly Dog Logo"
+                                        className="footer-logo"
+                                        style={{
+                                            maxWidth: '140px',
+                                            height: 'auto',
+                                            transition: 'transform 0.3s ease',
+                                            cursor: 'pointer'
+                                        }}
+                                        onMouseEnter={(e) => e.target.style.transform = 'scale(1.05)'}
+                                        onMouseLeave={(e) => e.target.style.transform = 'scale(1)'}
+                                    />
                                 </div>
-                                <p>Ugly Dog isn’t ugly, he is cute and funny because of its imperfections. Because humor is sometimes odd and sometimes even mean, without meaning any harm.</p>
+                                <p style={{
+                                    color: '#f0f0f0',
+                                    fontSize: '17px',
+                                    lineHeight: '1.7',
+                                    maxWidth: '650px',
+                                    margin: '0 auto 40px',
+                                    textShadow: '0 2px 4px rgba(0,0,0,0.4)',
+                                    textAlign: 'center',
+                                    fontWeight: '300',
+                                    letterSpacing: '0.3px'
+                                }}>
+                                    Ugly Dog isn’t just another meme coin – it’s a wild ride into the metaverse with real community power and crazy potential.
+                                </p>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div className="footer-bottom">
-                    <div className="container">
-                        <div className="wrap-fx">
-                            <div className="Copyright">
-                                Copyright © {new Date().getFullYear()}
-                            </div>
-                            <ul className="social">
-                                <li>
-                                    <Link href="#">
-                                        <svg width={18} height={18} viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <g clipPath="url(#clip0_157_2529)">
-                                                <path d="M18 3.41887C17.3306 3.7125 16.6174 3.90712 15.8737 4.00162C16.6388 3.54487 17.2226 2.82712 17.4971 1.962C16.7839 2.38725 15.9964 2.68763 15.1571 2.85525C14.4799 2.13413 13.5146 1.6875 12.4616 1.6875C10.4186 1.6875 8.77387 3.34575 8.77387 5.37863C8.77387 5.67113 8.79862 5.95237 8.85938 6.22012C5.7915 6.0705 3.07687 4.60013 1.25325 2.36025C0.934875 2.91263 0.748125 3.54488 0.748125 4.2255C0.748125 5.5035 1.40625 6.63637 2.38725 7.29225C1.79437 7.281 1.21275 7.10888 0.72 6.83775C0.72 6.849 0.72 6.86363 0.72 6.87825C0.72 8.6715 1.99912 10.161 3.6765 10.5041C3.37612 10.5863 3.04875 10.6256 2.709 10.6256C2.47275 10.6256 2.23425 10.6121 2.01038 10.5626C2.4885 12.024 3.84525 13.0984 5.4585 13.1332C4.203 14.1154 2.60888 14.7071 0.883125 14.7071C0.5805 14.7071 0.29025 14.6936 0 14.6565C1.63462 15.7106 3.57188 16.3125 5.661 16.3125C12.4515 16.3125 16.164 10.6875 16.164 5.81175C16.164 5.64862 16.1584 5.49113 16.1505 5.33475C16.8829 4.815 17.4982 4.16587 18 3.41887Z" fill="#798DA3" />
-                                            </g>
-                                            <defs>
-                                                <clipPath id="clip0_157_2529">
-                                                    <rect width={18} height={18} fill="white" />
-                                                </clipPath>
-                                            </defs>
-                                        </svg>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="#">
-                                        <svg width={18} height={18} viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M17.4377 0H13.2325L6.98535 10.9429L11.0106 18H15.2159L11.1906 10.9429L17.4377 0Z" fill="#798DA3" />
-                                            <path d="M5.24588 3.375H1.28138L3.57525 7.41488L0.5625 12.375H4.527L7.53975 7.41488L5.24588 3.375Z" fill="#798DA3" />
-                                        </svg>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="#">
-                                        <svg width={18} height={16} viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M9 0.199951C6.684 0.199951 4.8 2.08395 4.8 4.39995V11.6C4.8 11.93 4.5312 12.2 4.2 12.2C3.8688 12.2 3.6 11.93 3.6 11.6V8.59995H0V11.6C0 13.916 1.884 15.8 4.2 15.8C6.516 15.8 8.4 13.916 8.4 11.6V4.39995C8.4 4.06875 8.6688 3.79995 9 3.79995C9.3312 3.79995 9.6 4.06875 9.6 4.39995V6.67875L11.4 7.87875L13.2 6.67875V4.39995C13.2 2.08395 11.316 0.199951 9 0.199951Z" fill="#798DA3" />
-                                            <path d="M14.4001 8.59989V11.5999C14.4001 11.9299 14.1301 12.1999 13.8001 12.1999C13.4701 12.1999 13.2001 11.9299 13.2001 11.5999V8.12109L11.7325 9.09909C11.6317 9.16629 11.5165 9.19989 11.4001 9.19989C11.2837 9.19989 11.1685 9.16629 11.0677 9.09909L9.6001 8.12109V11.5999C9.6001 13.9159 11.4841 15.7999 13.8001 15.7999C16.1161 15.7999 18.0001 13.9159 18.0001 11.5999V8.59989H14.4001Z" fill="#798DA3" />
-                                        </svg>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="#">
-                                        <svg width={16} height={18} viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M10.3836 5.00756C10.3836 3.73634 10.8716 3.0748 11.5606 3.0748C12.2169 3.0748 12.654 3.6686 12.654 4.87208C12.654 5.5569 12.472 6.30736 12.3376 6.75085C12.3386 6.75191 12.9917 7.90035 14.7784 7.54788C15.1573 6.69899 15.3637 5.59924 15.3637 4.63498C15.3637 2.04068 14.0512 0.531311 11.6464 0.531311C9.17275 0.531311 7.72689 2.44819 7.72689 4.97475C7.72689 7.47802 8.88803 9.62776 10.8017 10.6068C9.9973 12.2295 8.9727 13.6595 7.90471 14.737C5.96772 12.3745 4.21596 9.22449 3.4962 3.07586H0.63623C1.9572 13.3165 5.89363 16.5766 6.9341 17.2032C7.5226 17.5599 8.03067 17.543 8.56837 17.2371C9.41302 16.7523 11.9512 14.195 13.3569 11.1985C13.9464 11.1964 14.6556 11.1287 15.3627 10.9667V8.95034C14.9297 9.0509 14.5117 9.09535 14.1348 9.09535C12.0147 9.09535 10.3836 7.60292 10.3836 5.00756Z" fill="#798DA3" />
-                                        </svg>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link href="#">
-                                        <svg width={18} height={12} viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M15.2235 4.99088C15.0649 4.938 14.9119 4.88737 14.7656 4.839C13.6451 4.47337 12.9701 4.25175 12.9701 3.34612C12.9701 2.6115 13.5157 2.07937 14.2673 2.07937C14.8433 2.07937 15.273 2.328 15.6578 2.88825C15.6938 2.94 15.7624 2.95913 15.8175 2.92875L16.9481 2.32912C16.9785 2.31337 17.0021 2.28525 17.0111 2.25037C17.0201 2.2155 17.0168 2.1795 17.001 2.148C16.3946 1.02975 15.5216 0.486375 14.3302 0.486375C12.5179 0.486375 11.3456 1.626 11.3456 3.38888C11.3456 5.19112 12.4796 5.92125 14.5699 6.63562C15.7804 7.05525 16.317 7.27687 16.317 8.17237C16.317 9.17925 15.4429 9.90263 14.2504 9.85987C13.0005 9.816 12.6225 9.12862 12.1466 8.00138C11.3411 6.09225 10.4242 3.86475 10.4164 3.84338C9.49725 1.63838 7.67362 0.375 5.4135 0.375C2.42887 0.375 0 2.89838 0 6.00113C0 9.10163 2.42887 11.625 5.4135 11.625C7.04137 11.625 8.568 10.8757 9.60075 9.56737C9.63 9.52912 9.63788 9.47738 9.61875 9.43237L8.937 7.79663C8.91787 7.75163 8.874 7.72013 8.82562 7.71788C8.77612 7.71563 8.73225 7.74375 8.70975 7.78762C8.06513 9.06675 6.80175 9.861 5.4135 9.861C3.36487 9.861 1.69875 8.12962 1.69875 6C1.69875 3.87037 3.36487 2.139 5.4135 2.139C6.90525 2.139 8.271 3.05813 8.81437 4.43062L10.503 8.43L10.6976 8.87887C11.4604 10.725 12.582 11.553 14.3381 11.5598C16.4261 11.5598 18 10.122 18 8.21625C18 6.30488 16.9819 5.58713 15.2235 4.99088Z" fill="#798DA3" />
-                                        </svg>
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </footer>
 
+                        {/* Social Media & Copyright Section */}
+                        <div className="col-12" data-aos="fade-up" data-aos-duration={800} data-aos-delay={400}>
+                            <div className="footer-bottom-section">
+                                <div className="footer-divider" style={{
+                                    height: '2px',
+                                    background: 'linear-gradient(90deg, #ff6b6b 0%, #4ecdc4 20%, #45b7d1 40%, #96ceb4 60%, #ffeaa7 80%, #dda0dd 100%)',
+                                    margin: '0 auto 40px',
+                                    maxWidth: '400px',
+                                    opacity: '0.8',
+                                    borderRadius: '2px',
+                                    boxShadow: '0 0 20px rgba(255, 107, 107, 0.3)'
+                                }}></div>
+                                <div className="footer-bottom-content" style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    gap: '25px'
+                                }}>
+                                    <div className="copyright-text">
+                                        <span style={{
+                                            color: '#c0c0c0',
+                                            fontSize: '15px',
+                                            fontWeight: '300',
+                                            textShadow: '0 1px 2px rgba(0,0,0,0.3)',
+                                            letterSpacing: '0.5px'
+                                        }}>
+                                            Copyright © {new Date().getFullYear()} Ugly Dog. All rights reserved.
+                                        </span>
+                                    </div>
+                                    <ul className="social-links" style={{
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        gap: '25px',
+                                        margin: '0',
+                                        padding: '0',
+                                        listStyle: 'none'
+                                    }}>
+                                        <li>
+                                            <Link
+                                                href="#"
+                                                title="X (formerly Twitter)"
+                                                aria-label="Follow us on X (Twitter)"
+                                                style={{
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'center',
+                                                    width: '50px',
+                                                    height: '50px',
+                                                    borderRadius: '50%',
+                                                    background: 'linear-gradient(135deg, #1da1f2 0%, #0d8bd9 100%)',
+                                                    boxShadow: '0 4px 15px rgba(29, 161, 242, 0.4)',
+                                                    border: '2px solid rgba(255,255,255,0.2)',
+                                                    transition: 'all 0.3s ease',
+                                                    textDecoration: 'none'
+                                                }}
+                                                onMouseEnter={(e) => {
+                                                    e.target.style.transform = 'translateY(-3px) scale(1.05)';
+                                                    e.target.style.boxShadow = '0 6px 25px rgba(29, 161, 242, 0.6)';
+                                                }}
+                                                onMouseLeave={(e) => {
+                                                    e.target.style.transform = 'translateY(0) scale(1)';
+                                                    e.target.style.boxShadow = '0 4px 15px rgba(29, 161, 242, 0.4)';
+                                                }}
+                                            >
+                                                <svg width={20} height={20} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="white"/>
+                                                </svg>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link
+                                                href="#"
+                                                title="Telegram"
+                                                aria-label="Join our Telegram community"
+                                                style={{
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'center',
+                                                    width: '50px',
+                                                    height: '50px',
+                                                    borderRadius: '50%',
+                                                    background: 'linear-gradient(135deg, #0088cc 0%, #0066aa 100%)',
+                                                    boxShadow: '0 4px 15px rgba(0, 136, 204, 0.4)',
+                                                    border: '2px solid rgba(255,255,255,0.2)',
+                                                    transition: 'all 0.3s ease',
+                                                    textDecoration: 'none'
+                                                }}
+                                                onMouseEnter={(e) => {
+                                                    e.target.style.transform = 'translateY(-3px) scale(1.05)';
+                                                    e.target.style.boxShadow = '0 6px 25px rgba(0, 136, 204, 0.6)';
+                                                }}
+                                                onMouseLeave={(e) => {
+                                                    e.target.style.transform = 'translateY(0) scale(1)';
+                                                    e.target.style.boxShadow = '0 4px 15px rgba(0, 136, 204, 0.4)';
+                                                }}
+                                            >
+                                                <svg width={20} height={20} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" fill="white"/>
+                                                </svg>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link
+                                                href="#"
+                                                title="Instagram"
+                                                aria-label="Follow us on Instagram for visual content"
+                                                style={{
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'center',
+                                                    width: '50px',
+                                                    height: '50px',
+                                                    borderRadius: '50%',
+                                                    background: 'linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%)',
+                                                    boxShadow: '0 4px 15px rgba(225, 48, 108, 0.4)',
+                                                    border: '2px solid rgba(255,255,255,0.2)',
+                                                    transition: 'all 0.3s ease',
+                                                    textDecoration: 'none'
+                                                }}
+                                                onMouseEnter={(e) => {
+                                                    e.target.style.transform = 'translateY(-3px) scale(1.05)';
+                                                    e.target.style.boxShadow = '0 6px 25px rgba(225, 48, 108, 0.6)';
+                                                }}
+                                                onMouseLeave={(e) => {
+                                                    e.target.style.transform = 'translateY(0) scale(1)';
+                                                    e.target.style.boxShadow = '0 4px 15px rgba(225, 48, 108, 0.4)';
+                                                }}
+                                            >
+                                                <svg width={20} height={20} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" fill="white"/>
+                                                </svg>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link
+                                                href="#"
+                                                title="Discord"
+                                                aria-label="Join our Discord server"
+                                                style={{
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'center',
+                                                    width: '50px',
+                                                    height: '50px',
+                                                    borderRadius: '50%',
+                                                    background: 'linear-gradient(135deg, #5865f2 0%, #4752c4 100%)',
+                                                    boxShadow: '0 4px 15px rgba(88, 101, 242, 0.4)',
+                                                    border: '2px solid rgba(255,255,255,0.2)',
+                                                    transition: 'all 0.3s ease',
+                                                    textDecoration: 'none'
+                                                }}
+                                                onMouseEnter={(e) => {
+                                                    e.target.style.transform = 'translateY(-3px) scale(1.05)';
+                                                    e.target.style.boxShadow = '0 6px 25px rgba(88, 101, 242, 0.6)';
+                                                }}
+                                                onMouseLeave={(e) => {
+                                                    e.target.style.transform = 'translateY(0) scale(1)';
+                                                    e.target.style.boxShadow = '0 4px 15px rgba(88, 101, 242, 0.4)';
+                                                }}
+                                            >
+                                                <svg width={20} height={20} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419-.0003 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1568 2.4189Z" fill="white"/>
+                                                </svg>
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link
+                                                href="#"
+                                                title="TikTok"
+                                                aria-label="Follow us on TikTok for short videos"
+                                                style={{
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'center',
+                                                    width: '50px',
+                                                    height: '50px',
+                                                    borderRadius: '50%',
+                                                    background: 'linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #333333 100%)',
+                                                    boxShadow: '0 4px 15px rgba(0, 0, 0, 0.4)',
+                                                    border: '2px solid rgba(255,255,255,0.2)',
+                                                    transition: 'all 0.3s ease',
+                                                    textDecoration: 'none'
+                                                }}
+                                                onMouseEnter={(e) => {
+                                                    e.target.style.transform = 'translateY(-3px) scale(1.05)';
+                                                    e.target.style.boxShadow = '0 6px 25px rgba(0, 0, 0, 0.6)';
+                                                }}
+                                                onMouseLeave={(e) => {
+                                                    e.target.style.transform = 'translateY(0) scale(1)';
+                                                    e.target.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.4)';
+                                                }}
+                                            >
+                                                <svg width={20} height={20} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" fill="white"/>
+                                                </svg>
+                                            </Link>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Additional styling for enhanced visual appeal */}
+                <style jsx>{`
+                    .integrated-footer {
+                        background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #0f0f23 100%);
+                        position: relative;
+                        padding: 70px 0 50px;
+                        overflow: hidden;
+                    }
+
+                    .integrated-footer::before {
+                        content: '';
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        height: 3px;
+                        background: linear-gradient(90deg, #ff6b6b 0%, #4ecdc4 20%, #45b7d1 40%, #96ceb4 60%, #ffeaa7 80%, #dda0dd 100%);
+                        box-shadow: 0 0 30px rgba(255, 107, 107, 0.5);
+                    }
+
+                    .integrated-footer::after {
+                        content: '';
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
+                        right: 0;
+                        height: 2px;
+                        background: linear-gradient(90deg, #ff6b6b 0%, #4ecdc4 20%, #45b7d1 40%, #96ceb4 60%, #ffeaa7 80%, #dda0dd 100%);
+                        box-shadow: 0 0 20px rgba(255, 107, 107, 0.3);
+                    }
+
+                    .footer-logo {
+                        filter: drop-shadow(0 4px 20px rgba(255, 255, 255, 0.15));
+                        transition: all 0.3s ease;
+                    }
+
+                    .footer-logo:hover {
+                        filter: drop-shadow(0 6px 25px rgba(255, 255, 255, 0.25));
+                    }
+
+                    @media (max-width: 768px) {
+                        .integrated-footer {
+                            padding: 50px 0 40px;
+                        }
+
+                        .footer-brand-section p {
+                            font-size: 15px !important;
+                            line-height: 1.6 !important;
+                            padding: 0 20px;
+                        }
+
+                        .social-links {
+                            gap: 18px !important;
+                        }
+
+                        .social-links li a {
+                            width: 45px !important;
+                            height: 45px !important;
+                        }
+                    }
+
+                    @keyframes float {
+                        0%, 100% { transform: translateY(0px); }
+                        50% { transform: translateY(-5px); }
+                    }
+
+                    .footer-logo {
+                        animation: float 3s ease-in-out infinite;
+                    }
+
+                    /* Sparkle animation removed as requested */
+                `}</style>
+            </footer>
         </>
     )
 }

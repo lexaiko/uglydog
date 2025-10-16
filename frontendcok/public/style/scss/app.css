@@ -23,8 +23,9 @@ body {
   font-size: 15px;
   line-height: 21px;
   font-weight: 500;
-  color: #798DA3;
-  background: #09121D;
+  color: #B8C5D1;
+  background: linear-gradient(135deg, #0A0F1C 0%, #1A2332 50%, #0A0F1C 100%);
+  min-height: 100vh;
 }
 body.home2 .bg_body {
   position: relative;
@@ -48,7 +49,7 @@ p {
   font-size: 15px;
   line-height: 21px;
   font-weight: 500;
-  color: #798DA3;
+  color: #9CA3AF;
 }
 
 img {
@@ -170,7 +171,7 @@ h6,
   font-size: 15px;
   line-height: 21px;
   font-weight: 500;
-  color: #798DA3;
+  color: #9CA3AF;
 }
 
 .z-index {
@@ -410,7 +411,7 @@ select {
   border-radius: 0;
   height: 46px;
   width: 100%;
-  color: #798DA3;
+  color: #9CA3AF;
   padding: 12px 14px;
   border-radius: 8px;
   display: flex;
@@ -445,7 +446,7 @@ input[type=color] {
   height: 46px;
   width: 100%;
   background: #1E2835;
-  color: #798DA3;
+  color: #9CA3AF;
   padding: 12px 14px;
   border-radius: 8px;
   display: flex;
@@ -470,7 +471,7 @@ input[type=search]::placeholder,
 input[type=tel]::placeholder,
 input[type=color]::placeholder {
   font-family: "Space Grotesk", sans-serif;
-  color: #798DA3;
+  color: #9CA3AF;
 }
 
 form button {
@@ -841,7 +842,7 @@ form button {
   transition: all 0.3s ease;
 }
 .tf-button.style1 {
-  background: #798DA3;
+  background: #9CA3AF;
   color: #fff;
 }
 .tf-button.style1:hover {
@@ -853,7 +854,7 @@ form button {
   color: #000000;
 }
 .tf-button.style2:hover {
-  background: #798DA3;
+  background: #9CA3AF;
   color: #fff;
 }
 .tf-button.style3 {
@@ -863,7 +864,7 @@ form button {
   font-size: 16px;
 }
 .tf-button.style3:hover {
-  background: #798DA3;
+  background: #9CA3AF;
   color: #fff;
 }
 
@@ -1113,6 +1114,7 @@ form button {
 }
 .main .page-title .slider-st3 {
   padding: 167px 0 0;
+  margin-top: 200px;
   background: none;
 }
 .main .page-title .slider-st3 .box-slider {
@@ -1419,7 +1421,7 @@ form button {
   color: #86FF00;
 }
 .featured-countdown.style2 .desc li {
-  color: #798DA3;
+  color: #9CA3AF;
 }
 .featured-countdown.style3 .countdown__timer {
   justify-content: flex-start;
@@ -1613,7 +1615,7 @@ form button {
   position: absolute;
   width: 4px;
   height: 4px;
-  background: #798DA3;
+  background: #9CA3AF;
   border-radius: 50%;
   left: 0;
   top: 8px;
@@ -1652,7 +1654,7 @@ form button {
 }
 .details .sidebar .prodect-content .box .inner-box ul li p:nth-child(1) {
   width: 27%;
-  color: #798DA3;
+  color: #9CA3AF;
 }
 
 .question-content .image-wrapper {
@@ -1755,7 +1757,7 @@ form button {
 }
 .project-info-form .form-inner ul .radio-btn:checked + .label {
   color: #121A24;
-  background-color: #798DA3;
+  background-color: #9CA3AF;
 }
 .project-info-form .form-inner ul .radio-btn:checked + .label::before {
   background-color: #FFFFFF;
@@ -2050,7 +2052,7 @@ form button {
 .post-details .content-inner .tag li {
   margin-right: 4px;
   font-size: 12px;
-  color: #798DA3;
+  color: #9CA3AF;
 }
 .post-details .content-inner .tag li:first-child {
   margin-right: 10px;
@@ -2251,7 +2253,7 @@ form button {
   margin-left: 0 !important;
 }
 .wallet-form .choose-network ul li:hover, .wallet-form .choose-network ul li.active {
-  background-color: #798DA3;
+  background-color: #9CA3AF;
 }
 .wallet-form .choose-network ul li:hover span, .wallet-form .choose-network ul li.active span {
   color: #fff;
@@ -2488,7 +2490,7 @@ form button {
   line-height: 1.4;
   opacity: 0.5;
   font-weight: 500;
-  color: #798DA3;
+  color: #9CA3AF;
   font-family: "Space Grotesk", sans-serif;
 }
 .project-info-form .form-inner .upload-img .col .box label span.file {
@@ -2527,7 +2529,7 @@ form button {
 .project-info-form .form-inner .upload-img.style2 .col .box label span {
   font-size: 15px;
   line-height: 21px;
-  color: #798DA3;
+  color: #9CA3AF;
   font-weight: 500;
   font-family: "Space Grotesk", sans-serif;
   transform: translateX(0);
@@ -2577,7 +2579,7 @@ form button {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #798DA3;
+  background: #9CA3AF;
 }
 .project-info-form .checkbox input {
   position: absolute;
@@ -2586,7 +2588,7 @@ form button {
 }
 
 .project-info-form .form-inner #checkbox:checked + label.icon::before {
-  background: #798DA3;
+  background: #9CA3AF;
   content: "\e903";
 }
 
@@ -2672,7 +2674,7 @@ form button {
   padding-bottom: 0;
 }
 .project-info-form.form-login .title a {
-  color: #798DA3;
+  color: #9CA3AF;
 }
 .project-info-form.form-login .title a:hover {
   color: #86FF00;
@@ -2799,7 +2801,7 @@ form button {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #798DA3;
+  background: #9CA3AF;
 }
 .checkbox input {
   position: absolute;
@@ -3215,7 +3217,7 @@ form button {
 .project-box-style4 .label {
   font-size: 12px;
   line-height: 1.4;
-  background-color: #798DA3;
+  background-color: #9CA3AF;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3609,7 +3611,7 @@ form button {
   justify-content: center;
   width: 44px;
   height: 44px;
-  border: 1px solid #798DA3;
+  border: 1px solid #9CA3AF;
   border-radius: 50%;
 }
 .social li a svg path {
@@ -3754,19 +3756,12 @@ form button {
 .partner-wrapper.style3 .image {
   width: calc(16.6666666667% - 30px);
   margin-left: 30px;
-  height: 70px;
+  height: auto;
   position: relative;
-  -webkit-mask-image: url("./../../assets/images/backgroup/bg_partner_2.png");
-  mask-image: url("./../../assets/images/backgroup/bg_partner_2.png");
-  -webkit-mask-position: center center;
-  mask-position: center center;
-  -webkit-mask-repeat: no-repeat;
-  background: url("./../../assets/images/backgroup/bg_partner_2.png");
-  background-position: center, center;
-  background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: transparent;
 }
 
 .move4 {
@@ -3834,7 +3829,7 @@ form button {
   font-size: 15px;
   line-height: 21px;
   font-weight: 500;
-  color: #798DA3;
+  color: #9CA3AF;
 }
 .icon-box .bottom {
   position: absolute;
@@ -3982,7 +3977,7 @@ form button {
   content: "";
   width: 4px;
   height: 4px;
-  background-color: #798DA3;
+  background-color: #9CA3AF;
   border-radius: 50%;
   right: 0;
   top: 10px;
@@ -4025,7 +4020,7 @@ form button {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background-color: #798DA3;
+  background-color: #9CA3AF;
   right: 2px;
   top: 0;
   z-index: 2;
@@ -4076,7 +4071,7 @@ form button {
   content: "";
   height: 1px;
   width: 100%;
-  background: #798DA3;
+  background: #9CA3AF;
   opacity: 0.12;
   bottom: 0;
   left: 0;
@@ -4158,7 +4153,7 @@ form button {
   content: "";
   height: 100%;
   width: 1px;
-  background: #798DA3;
+  background: #9CA3AF;
   opacity: 0.12;
   top: 0;
   right: 0;
@@ -4313,17 +4308,26 @@ form button {
   margin-bottom: 0;
 }
 
-.features .wrapper-box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-left: -30px;
+.features .features-grid-container {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 50px !important;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  align-items: center !important;
 }
-.features .wrapper-box .icon-box-style2 {
-  margin-bottom: 30px;
-  width: calc(33.3333% - 30px);
-  margin-left: 30px;
+.features .features-grid-container .features-grid-row {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: stretch !important;
+  gap: 50px !important;
+  width: 100% !important;
+}
+.features .features-grid-container .features-grid-row .icon-box-style2 {
+  flex: 1 !important;
+  max-width: 480px !important;
+  min-width: 300px !important;
+  margin-bottom: 0 !important;
 }
 
 .icon-box-style3 {
@@ -4407,7 +4411,7 @@ form button {
   -ms-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
-  fill: #798DA3;
+  fill: #9CA3AF;
 }
 .icon-box-style4 h6 {
   font-size: 16px;
@@ -4626,7 +4630,7 @@ form button {
   font-family: "Space Grotesk", sans-serif;
   font-size: 15px;
   font-weight: 500;
-  color: #798DA3;
+  color: #9CA3AF;
 }
 .project_detail.project-box-style5 .content-inner .total p.active {
   font-size: 17px;
@@ -4766,7 +4770,7 @@ form button {
   content: "";
   width: 4px;
   height: 4px;
-  background-color: #798DA3;
+  background-color: #9CA3AF;
   border-radius: 50%;
   right: 0;
   top: 10px;
@@ -4813,7 +4817,7 @@ form button {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background-color: #798DA3;
+  background-color: #9CA3AF;
   right: -18px;
   top: 50%;
   z-index: 999;
@@ -4832,7 +4836,7 @@ form button {
   width: 10px;
   height: 10px;
   content: "";
-  background-color: #798DA3;
+  background-color: #9CA3AF;
   border-radius: 50%;
   right: -6px;
   top: 50%;
@@ -5443,7 +5447,7 @@ form button {
   -ms-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
-  color: #798DA3;
+  color: #9CA3AF;
   font-size: 20px;
   line-height: 28px;
   font-weight: bold;
@@ -5726,7 +5730,7 @@ form button {
   font-weight: 500;
   font-size: 12px;
   line-height: 1.4;
-  color: #798DA3;
+  color: #9CA3AF;
 }
 #footer .footer-main .widget-link.contact li a {
   font-weight: 400;
@@ -8287,7 +8291,7 @@ img.mfp-img {
   top: 8px;
   width: 6px;
   height: 6px;
-  background-color: #798DA3;
+  background-color: #9CA3AF;
   opacity: 0.2;
   content: "";
   border-radius: 50%;
@@ -8296,7 +8300,7 @@ img.mfp-img {
   color: #fff;
 }
 .widget .widget-category li a span {
-  color: #798DA3;
+  color: #9CA3AF;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
   -ms-transition: all 0.3s ease;
@@ -8471,7 +8475,7 @@ img.mfp-img {
 
 .progress-bar {
   background-color: transparent;
-  color: #798DA3;
+  color: #9CA3AF;
 }
 
 .progress-title-holder {
@@ -9152,9 +9156,16 @@ img.mfp-img {
   .home3 .tf_CTA_2 .overlay {
     height: 100%;
   }
-  .features .wrapper-box .icon-box-style2 {
-    width: calc(50% - 30px);
-  }
+    .features .features-grid-container {
+        gap: 40px !important;
+    }
+    .features .features-grid-container .features-grid-row {
+        gap: 40px !important;
+    }
+    .features .features-grid-container .features-grid-row .icon-box-style2 {
+        max-width: 420px !important;
+        min-width: 280px !important;
+    }
   .home3 .tf-section.project_2,
   .home3 .tf-section.tf_partner,
   .home3 .tf-section.project {
@@ -9347,9 +9358,20 @@ img.mfp-img {
   }
 }
 @media only screen and (max-width: 600px) {
-  .features .wrapper-box .icon-box-style2 {
-    width: calc(100% - 30px);
-  }
+    .features .features-grid-container {
+        gap: 30px !important;
+        padding: 0 20px !important;
+    }
+    .features .features-grid-container .features-grid-row {
+        flex-direction: column !important;
+        gap: 25px !important;
+        align-items: center !important;
+    }
+    .features .features-grid-container .features-grid-row .icon-box-style2 {
+        max-width: 350px !important;
+        min-width: 250px !important;
+        width: 100% !important;
+    }
   .home3 .tf-section.FAQs {
     padding-top: 70px;
   }

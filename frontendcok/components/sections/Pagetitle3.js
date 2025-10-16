@@ -30,7 +30,9 @@ export default function Pagetitle3() {
         <>
 
             <section id="home" className="page-title st3" style={{marginBottom: 72}}>
-                <div className="overlay">
+                <div className="overlay" style={{
+                    background: 'linear-gradient(135deg, rgba(10,15,28,0.9) 0%, rgba(26,35,50,0.7) 50%, rgba(10,15,28,0.9) 100%)'
+                }}>
                 </div>
                 <div className="swiper-container slider-main">
                     <Swiper {...swiperOptions} className="swiper-wrapper">
@@ -46,7 +48,10 @@ export default function Pagetitle3() {
                                                         it’s a wild ride into the metaverse with real community power and crazy potential.</p>
                                                     <div className="wrap-btn">
                                                         <Link href="#" className="tf-button style2">
-                                                            LEARN MORE
+                                                            Buy Uglydog
+                                                        </Link>
+                                                        <Link href="#" className="tf-button style2" style={{ marginLeft: '1rem' }}>
+                                                            Start Game
                                                         </Link>
                                                     </div>
                                                     <div className="flat-box">
@@ -73,14 +78,14 @@ export default function Pagetitle3() {
                                                 <div className="image">
                                                     <img className="img_main" src="assets/images/slider/Testing.png" alt="" />
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
                             </div>
                         </SwiperSlide>
                     </Swiper>
-                </div>
+                    </div>
             </section>
         </>
     )

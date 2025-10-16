@@ -51,6 +51,46 @@ export default function NativeUglyDogGame() {
   const [dogTimeoutState, setDogTimeoutState] = useState(false)
   const [levelUpBreak, setLevelUpBreak] = useState(false)
   const [breakCountdown, setBreakCountdown] = useState(0)
+  
+  // NEW: Mobile dropdown states
+  const [showLeaderboardDropdown, setShowLeaderboardDropdown] = useState(false)
+  const [showHowToPlayDropdown, setShowHowToPlayDropdown] = useState(false)
+  
+  // NEW: Game-only rotation state - REMOVED, using CSS-only approach
+  // const [showGameRotationPrompt, setShowGameRotationPrompt] = useState(false)
+  
+  // NEW: Mini Interactive Preview state
+  const [miniGameState, setMiniGameState] = useState({
+    score: 0,
+    dogPosition: { x: 50, y: 50 },
+    showMiniGame: false
+  })
+
+  // REMOVED: Orientation detection effect - using CSS media queries instead
+  // useEffect(() => {
+  //   const checkOrientation = () => {
+  //     const isMobile = window.innerWidth <= 768
+  //     const isPortrait = window.innerHeight > window.innerWidth
+      
+  //     if (isMobile && isPortrait) {
+  //       setShowGameRotationPrompt(true)
+  //     } else {
+  //       setShowGameRotationPrompt(false)
+  //     }
+  //   }
+
+  //   // Initial check
+  //   checkOrientation()
+
+  //   // Listen for orientation changes and resize
+  //   window.addEventListener('resize', checkOrientation)
+  //   window.addEventListener('orientationchange', checkOrientation)
+
+  //   return () => {
+  //     window.removeEventListener('resize', checkOrientation)
+  //     window.removeEventListener('orientationchange', checkOrientation)
+  //   }
+  // }, [])
 
   // --- Timer/interval refs for bulletproof cleanup ---
   const autoMissTimerRef = React.useRef(null)
@@ -80,6 +120,41 @@ export default function NativeUglyDogGame() {
   }, [gameState.score])
 
   const currentLevel = getCurrentLevel()
+
+  // NEW: Mini Interactive Preview Functions
+  const spawnMiniDog = useCallback(() => {
+    const x = Math.random() * 60 + 20 // 20-80% range
+    const y = Math.random() * 40 + 30 // 30-70% range
+    setMiniGameState(prev => ({
+      ...prev,
+      dogPosition: { x, y }
+    }))
+  }, [])
+
+  const handleMiniDogClick = useCallback(() => {
+    setMiniGameState(prev => ({
+      ...prev,
+      score: prev.score + 10
+    }))
+    spawnMiniDog()
+  }, [spawnMiniDog])
+
+  const startMiniGame = useCallback(() => {
+    setMiniGameState(prev => ({
+      ...prev,
+      showMiniGame: true,
+      score: 0
+    }))
+    spawnMiniDog()
+  }, [spawnMiniDog])
+
+  // Auto-spawn mini dog every 2 seconds
+  useEffect(() => {
+    if (miniGameState.showMiniGame) {
+      const miniInterval = setInterval(spawnMiniDog, 2000)
+      return () => clearInterval(miniInterval)
+    }
+  }, [miniGameState.showMiniGame, spawnMiniDog])
 
   // Block UI with loading state (auth not ready)
   if (loading) {
@@ -860,6 +935,7 @@ export default function NativeUglyDogGame() {
   return (
     <>
       {showMissAlert && <MissAlert />}
+      
       <style jsx>{`
         /* SIMPLIFIED: Z-Index Hierarchy Management (No more traps!) */
         /* Layer 1 (z-index: 1-5): Background elements */
@@ -874,6 +950,9 @@ export default function NativeUglyDogGame() {
           border-radius: 20px;
           border: 2px solid rgba(255, 255, 255, 0.0784313725);
           overflow: hidden;
+          /* IMPORTANT: Make this container relative for absolute positioning */
+          position: relative;
+          min-height: 600px;
         }
         
         /* MAIN GRID LAYOUT */
@@ -1815,16 +1894,58 @@ export default function NativeUglyDogGame() {
         }
         
         /* RESPONSIVE DESIGN - HEXAGONAL OPTIMIZATION */
-        @media (max-width: 968px) {
+        @media (max-width: 1024px) {
           .game-main-grid {
             grid-template-columns: 1fr;
+            gap: 16px;
+            padding: 16px;
+          }
+          
+          .gaming-hud {
+            padding: 14px 32px;
+            gap: 18px;
+            clip-path: polygon(18px 0%, 100% 0%, calc(100% - 18px) 100%, 0% 100%);
+          }
+          
+          .gaming-hud::before {
+            clip-path: polygon(18px 0%, 100% 0%, calc(100% - 18px) 100%, 0% 100%);
+          }
+          
+          .gaming-hud::after {
+            clip-path: polygon(18px 0%, 100% 0%, calc(100% - 18px) 100%, 0% 100%);
+          }
+          
+          .progress-bar {
+            width: 65px;
+          }
+          
+          .game-canvas {
+            height: 320px;
+          }
+          
+          .how-to-play-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+          }
+          
+          .leaderboard-area {
+            order: 2;
+          }
+          
+          .how-to-play-section {
+            order: 3;
+          }
+        }
+        
+        @media (max-width: 968px) {
+          .game-main-grid {
             gap: 12px;
             padding: 12px;
           }
           
           .gaming-hud {
-            padding: 12px 30px;
-            gap: 16px;
+            padding: 12px 24px;
+            gap: 14px;
             clip-path: polygon(15px 0%, 100% 0%, calc(100% - 15px) 100%, 0% 100%);
           }
           
@@ -1849,24 +1970,15 @@ export default function NativeUglyDogGame() {
           }
           
           .how-to-play-grid {
-            grid-template-columns: repeat(2, 1fr);
             gap: 10px;
-          }
-          
-          .leaderboard-area {
-            order: 2;
-          }
-          
-          .how-to-play-section {
-            order: 3;
           }
         }
         
         @media (max-width: 768px) {
           .gaming-hud {
             flex-wrap: wrap;
-            gap: 10px;
-            padding: 10px 20px;
+            gap: 8px;
+            padding: 8px 16px;
             justify-content: center;
             clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
           }
@@ -1885,56 +1997,229 @@ export default function NativeUglyDogGame() {
           
           .hud-section {
             flex: 0 0 auto;
-            min-width: 90px;
+            min-width: 80px;
             justify-content: center;
+            padding: 4px 8px;
+          }
+          
+          /* Mobile-optimized sizing */
+          .health-hearts {
+            gap: 3px;
+          }
+          
+          .heart-icon {
+            width: 18px;
+            height: 18px;
+          }
+          
+          .score-display {
+            font-size: 14px;
+          }
+          
+          .level-text {
+            font-size: 12px;
+            min-width: 25px;
           }
           
           .progress-bar {
             width: 50px;
+            height: 6px;
+          }
+          
+          .miss-text {
+            font-size: 11px;
+          }
+          
+          .miss-bars {
+            gap: 2px;
+          }
+          
+          .miss-bar {
+            width: 8px;
+            height: 14px;
+            border-radius: 2px;
           }
           
           .game-canvas {
             height: 280px;
           }
           
+          .uglydog img {
+            width: 60px !important;
+            height: 60px !important;
+          }
+          
+          .countdown-circle {
+            width: 70px !important;
+            height: 70px !important;
+            font-size: 16px !important;
+          }
+          
           .how-to-play-grid {
             grid-template-columns: 1fr;
-            gap: 10px;
+            gap: 8px;
           }
           
           .instruction-card {
-            padding: 12px;
+            padding: 10px 8px;
           }
           
           .leaderboard-content {
-            padding: 10px;
+            padding: 8px 6px;
           }
           
           .leaderboard-item {
-            padding: 6px;
-            gap: 8px;
+            padding: 6px 4px;
+            gap: 6px;
           }
         }
         
+        /* Small mobile optimization */
         @media (max-width: 480px) {
+          .gaming-hud {
+            padding: 6px 12px;
+            gap: 6px;
+          }
+          
+          .hud-section {
+            padding: 3px 6px;
+            min-width: 70px;
+          }
+          
+          .health-hearts {
+            gap: 2px;
+          }
+          
+          .heart-icon {
+            width: 16px;
+            height: 16px;
+          }
+          
+          .score-display {
+            font-size: 12px;
+          }
+          
+          .level-text {
+            font-size: 11px;
+            min-width: 20px;
+          }
+          
+          .progress-bar {
+            width: 40px;
+            height: 5px;
+          }
+          
+          .miss-text {
+            font-size: 10px;
+          }
+          
+          .miss-bar {
+            width: 6px;
+            height: 12px;
+          }
+          
+          .game-canvas {
+            height: 240px;
+          }
+          
+          .uglydog img {
+            width: 50px !important;
+            height: 50px !important;
+          }
+          
+          .countdown-circle {
+            width: 60px !important;
+            height: 60px !important;
+            font-size: 14px !important;
+          }
+        }
+        
+        @media (max-width: 600px) {
           .game-main-grid {
-            padding: 10px;
-            gap: 10px;
+            padding: 8px;
+            gap: 8px;
           }
           
           .gaming-hud {
             flex-direction: column;
-            gap: 8px;
-            padding: 8px;
+            gap: 6px;
+            padding: 6px 4px;
+            clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+          }
+          
+          .gaming-hud::before {
+            clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+          }
+          
+          .gaming-hud::after {
+            clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
           }
           
           .hud-section {
             justify-content: space-between;
             width: 100%;
+            min-width: unset;
+            padding: 2px 4px;
           }
           
           .health-hearts {
+            gap: 4px;
+          }
+          
+          .heart-icon {
+            width: 20px;
+            height: 20px;
+          }
+          
+          .progress-bar {
+            width: 40px;
+            height: 6px;
+          }
+          
+          .game-canvas {
+            height: 240px;
+            min-height: 200px;
+          }
+          
+          .uglydog img {
+            width: 55px !important;
+            height: 55px !important;
+          }
+          
+          .leaderboard-header {
+            padding: 10px 8px;
+          }
+          
+          .leaderboard-content {
+            padding: 6px 4px;
+          }
+          
+          .how-to-play-section {
+            padding: 12px 8px;
+          }
+          
+          .instruction-card {
+            padding: 8px 6px;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .game-main-grid {
+            padding: 6px;
             gap: 6px;
+          }
+          
+          .gaming-hud {
+            gap: 4px;
+            padding: 4px 2px;
+          }
+          
+          .hud-section {
+            padding: 2px 2px;
+          }
+          
+          .health-hearts {
+            gap: 3px;
           }
           
           .heart-icon {
@@ -1943,28 +2228,34 @@ export default function NativeUglyDogGame() {
           }
           
           .progress-bar {
-            width: 40px;
+            width: 35px;
+            height: 5px;
           }
           
           .game-canvas {
-            height: 250px;
+            height: 220px;
+            min-height: 180px;
           }
           
           .uglydog img {
-            width: 45px !important;
-            height: 45px !important;
+            width: 50px !important;
+            height: 50px !important;
           }
           
           .leaderboard-header {
-            padding: 12px;
+            padding: 8px 6px;
           }
           
           .leaderboard-content {
-            padding: 8px;
+            padding: 4px 2px;
           }
           
           .how-to-play-section {
-            padding: 15px;
+            padding: 10px 6px;
+          }
+          
+          .instruction-card {
+            padding: 6px 4px;
           }
         }
         
@@ -1984,18 +2275,785 @@ export default function NativeUglyDogGame() {
           }
           
           .game-canvas {
+            height: 180px;
+            min-height: 160px;
+          }
+          
+          .gaming-hud {
+            padding: 6px 12px;
+            gap: 12px;
+          }
+          
+          .hud-section {
+            min-width: 60px;
+          }
+        }
+        
+        /* Extra Small Mobile (iPhone SE, etc.) */
+        @media (max-width: 375px) {
+          .game-canvas {
             height: 200px;
+            min-height: 160px;
+          }
+          
+          .uglydog img {
+            width: 45px !important;
+            height: 45px !important;
+          }
+          
+          .heart-icon {
+            width: 16px;
+            height: 16px;
+          }
+          
+          .progress-bar {
+            width: 30px;
+            height: 4px;
+          }
+          
+          .gaming-hud {
+            padding: 4px 2px;
+            gap: 3px;
+          }
+        }
+        
+        /* Mobile Dropdown Buttons */
+        .mobile-dropdown-buttons {
+          display: none;
+          gap: 8px;
+          margin-bottom: 8px;
+        }
+        
+        .mobile-dropdown-btn {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          padding: 8px 12px;
+          background: rgba(134, 255, 0, 0.1);
+          border: 1px solid rgba(134, 255, 0, 0.3);
+          border-radius: 8px;
+          color: #86FF00;
+          font-size: 12px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+        
+        .mobile-dropdown-btn:hover {
+          background: rgba(134, 255, 0, 0.2);
+          border-color: rgba(134, 255, 0, 0.5);
+          transform: translateY(-1px);
+        }
+        
+        .dropdown-arrow {
+          transition: transform 0.2s ease;
+        }
+        
+        .dropdown-arrow.open {
+          transform: rotate(180deg);
+        }
+        
+        /* Mobile Dropdown Content */
+        .mobile-dropdown-content {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background: rgba(30, 40, 53, 0.95);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          border: 1px solid rgba(134, 255, 0, 0.3);
+          border-radius: 12px;
+          margin-top: 8px;
+          z-index: 100;
+          max-height: 400px;
+          overflow-y: auto;
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .mobile-dropdown-content.show {
+          display: block;
+          animation: dropdownSlideIn 0.3s ease-out;
+        }
+        
+        @keyframes dropdownSlideIn {
+          0% {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        /* Mobile Leaderboard Styles */
+        .mobile-leaderboard {
+          padding: 16px;
+        }
+        
+        .mobile-leaderboard-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 12px;
+          padding-bottom: 8px;
+          border-bottom: 1px solid rgba(134, 255, 0, 0.2);
+        }
+        
+        .mobile-leaderboard-header h3 {
+          margin: 0;
+          color: #86FF00;
+          font-size: 16px;
+          font-weight: 700;
+        }
+        
+        .close-dropdown {
+          background: none;
+          border: none;
+          color: #9CA3AF;
+          cursor: pointer;
+          padding: 4px;
+          border-radius: 4px;
+          transition: all 0.2s ease;
+        }
+        
+        .close-dropdown:hover {
+          color: #fff;
+          background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .mobile-leaderboard-content {
+          margin-bottom: 12px;
+        }
+        
+        .mobile-leaderboard-list {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+        
+        .mobile-leaderboard-item {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          padding: 8px;
+          background: rgba(0, 0, 0, 0.2);
+          border-radius: 6px;
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          transition: all 0.2s ease;
+        }
+        
+        .mobile-leaderboard-item:hover {
+          background: rgba(134, 255, 0, 0.1);
+          border-color: rgba(134, 255, 0, 0.3);
+        }
+        
+        .mobile-rank {
+          font-size: 12px;
+          font-weight: bold;
+          color: #86FF00;
+          min-width: 20px;
+        }
+        
+        .mobile-player-info {
+          flex: 1;
+        }
+        
+        .mobile-player-name {
+          font-size: 12px;
+          font-weight: 600;
+          color: #fff;
+        }
+        
+        .mobile-player-level {
+          font-size: 10px;
+          color: #9CA3AF;
+        }
+        
+        .mobile-player-score {
+          font-size: 12px;
+          font-weight: bold;
+          color: #fbbf24;
+        }
+        
+        .mobile-leaderboard-empty {
+          text-align: center;
+          padding: 20px;
+        }
+        
+        .mobile-empty-text {
+          color: #9CA3AF;
+          font-size: 14px;
+          margin-bottom: 4px;
+        }
+        
+        .mobile-empty-subtitle {
+          color: #6B7280;
+          font-size: 12px;
+        }
+        
+        .mobile-personal-best {
+          padding: 8px;
+          background: rgba(134, 255, 0, 0.1);
+          border: 1px solid rgba(134, 255, 0, 0.3);
+          border-radius: 6px;
+          text-align: center;
+        }
+        
+        .mobile-personal-best-label {
+          font-size: 11px;
+          color: #86FF00;
+          margin-bottom: 2px;
+        }
+        
+        .mobile-personal-best-score {
+          font-size: 14px;
+          font-weight: bold;
+          color: #fff;
+        }
+        
+        /* Mobile How to Play Styles */
+        .mobile-how-to-play {
+          padding: 16px;
+        }
+        
+        .mobile-how-to-play-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 12px;
+          padding-bottom: 8px;
+          border-bottom: 1px solid rgba(134, 255, 0, 0.2);
+        }
+        
+        .mobile-how-to-play-header h3 {
+          margin: 0;
+          color: #86FF00;
+          font-size: 16px;
+          font-weight: 700;
+        }
+        
+        .mobile-how-to-play-grid {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+        
+        .mobile-instruction-card {
+          display: flex;
+          align-items: flex-start;
+          gap: 10px;
+          padding: 10px;
+          background: rgba(0, 0, 0, 0.2);
+          border-radius: 6px;
+          border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .mobile-instruction-icon {
+          font-size: 18px;
+          min-width: 24px;
+          text-align: center;
+        }
+        
+        .mobile-instruction-title {
+          font-size: 13px;
+          font-weight: 600;
+          color: #fff;
+          margin-bottom: 2px;
+        }
+        
+        .mobile-instruction-text {
+          font-size: 11px;
+          color: #9CA3AF;
+          line-height: 1.3;
+        }
+        
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+          .mobile-dropdown-buttons {
+            display: flex;
+          }
+          
+          .mobile-dropdown-content {
+            position: relative;
+            top: auto;
+            left: auto;
+            right: auto;
+            margin-top: 8px;
+            margin-bottom: 8px;
+          }
+          
+          .leaderboard-area {
+            display: none;
+          }
+          
+          .how-to-play-section > .how-to-play-header,
+          .how-to-play-section > .how-to-play-grid {
+            display: none;
+          }
+        }
+        
+        /* Scrollbar for mobile dropdown */
+        .mobile-dropdown-content::-webkit-scrollbar {
+          width: 4px;
+        }
+        
+        .mobile-dropdown-content::-webkit-scrollbar-track {
+          background: rgba(255, 255, 255, 0.05);
+          border-radius: 2px;
+        }
+        
+        .mobile-dropdown-content::-webkit-scrollbar-thumb {
+          background: linear-gradient(135deg, #86FF00, #8b5cf6);
+          border-radius: 2px;
+        }
+        
+        .mobile-dropdown-content::-webkit-scrollbar-thumb:hover {
+          background: linear-gradient(135deg, #86FF00, #00FFFF);
+        }
+        
+        /* NEW: Rotation Prompt Styles */
+        .rotation-prompt {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(135deg, #1A222C 0%, #1E2835 100%);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 99999;
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .rotation-content {
+          text-align: center;
+          color: #ffffff;
+          padding: 40px;
+          border-radius: 20px;
+          background: rgba(0, 0, 0, 0.3);
+          border: 2px solid rgba(255, 255, 255, 0.1);
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+          max-width: 300px;
+          width: 90%;
+        }
+        
+        .rotation-icon {
+          font-size: 48px;
+          margin-bottom: 16px;
+          animation: pulse 2s infinite;
+        }
+        
+        .rotation-text {
+          font-size: 20px;
+          font-weight: bold;
+          margin-bottom: 8px;
+          color: #86FF00;
+          text-shadow: 0 0 16px rgba(134, 255, 0, 0.8);
+        }
+        
+        .rotation-subtitle {
+          font-size: 14px;
+          opacity: 0.8;
+          color: #ffffff;
+        }
+        
+        @keyframes pulse {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.1); }
+        }
+        
+        /* NEW: Landscape-optimized mobile styles */
+        @media (max-width: 768px) and (orientation: landscape) {
+          .native-uglydog-game {
+            transform: scale(0.85);
+            transform-origin: center;
+            margin: 0 auto;
+          }
+          
+          .gaming-hud {
+            padding: 8px 16px;
+            gap: 12px;
+          }
+          
+          .hud-section {
+            padding: 6px 12px;
+            min-width: 90px;
+          }
+          
+          .health-hearts {
+            gap: 4px;
+          }
+          
+          .heart-icon {
+            width: 20px;
+            height: 20px;
+          }
+          
+          .score-display {
+            font-size: 16px;
+          }
+          
+          .level-text {
+            font-size: 14px;
+            min-width: 30px;
+          }
+          
+          .progress-bar {
+            width: 60px;
+            height: 8px;
+          }
+          
+          .miss-text {
+            font-size: 13px;
+          }
+          
+          .miss-bars {
+            gap: 3px;
+          }
+          
+          .miss-bar {
+            width: 10px;
+            height: 16px;
+            border-radius: 2px;
+          }
+          
+          .game-canvas {
+            height: 300px;
+          }
+          
+          .uglydog img {
+            width: 70px !important;
+            height: 70px !important;
+          }
+          
+          .countdown-circle {
+            width: 80px !important;
+            height: 80px !important;
+            font-size: 18px !important;
+          }
+        }
+        
+        /* NEW: Game-Only Rotation Prompt Styles */
+        .game-rotation-prompt {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(135deg, rgba(26, 34, 44, 0.98) 0%, rgba(30, 40, 53, 0.98) 100%);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          z-index: 9999 !important;
+          border-radius: 16px;
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+          border: 2px solid rgba(255, 255, 255, 0.1);
+          /* Default: hidden for desktop, will be shown by CSS media queries */
+          display: none;
+          /* IMPORTANT: Only cover game area, not entire page */
+          width: 100%;
+          height: 100%;
+        }
+        
+        .game-rotation-content {
+          text-align: center;
+          color: #ffffff;
+          padding: 30px;
+          border-radius: 16px;
+          background: rgba(0, 0, 0, 0.6);
+          border: 2px solid rgba(255, 255, 255, 0.2);
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+          max-width: 320px;
+          width: 90%;
+          min-height: 200px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+        
+        .game-rotation-icon {
+          font-size: 48px;
+          margin-bottom: 16px;
+          animation: pulse 2s infinite;
+          color: #86FF00;
+          text-shadow: 0 0 16px rgba(134, 255, 0, 0.8);
+        }
+        
+        .game-rotation-text {
+          font-size: 20px;
+          font-weight: bold;
+          margin-bottom: 8px;
+          color: #86FF00;
+          text-shadow: 0 0 16px rgba(134, 255, 0, 0.8);
+        }
+        
+        .game-rotation-subtitle {
+          font-size: 14px;
+          opacity: 0.9;
+          color: #ffffff;
+          margin-bottom: 16px;
+        }
+        
+        /* Show rotation prompt in portrait mode */
+        @media (max-width: 768px) and (orientation: portrait) {
+          .game-rotation-prompt {
+            display: flex !important;
+          }
+          
+          /* Hide actual game content in portrait */
+          .actual-game-content {
+            display: none;
+          }
+        }
+        
+        /* Hide rotation prompt in landscape */
+        @media (max-width: 768px) and (orientation: landscape) {
+          .game-rotation-prompt {
+            display: none !important;
+          }
+          
+          .actual-game-content {
+            display: block;
+          }
+        }
+        
+        /* NEW: Mini Interactive Preview Styles */
+        .mini-preview-start-btn {
+          background: linear-gradient(135deg, #86FF00, #00FFFF) !important;
+          border: none !important;
+          color: #000000 !important;
+          padding: 12px 24px !important;
+          border-radius: 25px !important;
+          font-weight: bold !important;
+          cursor: pointer !important;
+          margin-top: 20px !important;
+          transition: all 0.3s ease !important;
+          box-shadow: 0 4px 12px rgba(134, 255, 0, 0.5) !important;
+          font-size: 14px !important;
+          text-transform: uppercase !important;
+          letter-spacing: 1px !important;
+        }
+        
+        .mini-preview-start-btn:hover {
+          transform: translateY(-2px) !important;
+          box-shadow: 0 6px 16px rgba(134, 255, 0, 0.7) !important;
+        }
+        
+        .mini-preview-container {
+          width: 100% !important;
+          height: 180px !important;
+          background: rgba(0, 0, 0, 0.5) !important;
+          border-radius: 12px !important;
+          position: relative !important;
+          margin: 20px 0 !important;
+          border: 2px solid rgba(134, 255, 0, 0.3) !important;
+          overflow: hidden !important;
+          box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+        }
+        
+        .mini-preview-score {
+          position: absolute !important;
+          top: 10px !important;
+          left: 10px !important;
+          color: #86FF00 !important;
+          font-weight: bold !important;
+          font-size: 16px !important;
+          z-index: 10 !important;
+          background: rgba(0, 0, 0, 0.8) !important;
+          padding: 6px 12px !important;
+          border-radius: 20px !important;
+          border: 1px solid rgba(134, 255, 0, 0.5) !important;
+        }
+        
+        .mini-uglydog {
+          z-index: 5 !important;
+        }
+        
+        .mini-uglydog:hover {
+          transform: scale(1.2) !important;
+        }
+        
+        .mini-uglydog:active {
+          transform: scale(0.9) !important;
+        }
+        
+        /* Universal Mobile Responsive Styles */
+        /* Small Mobile (320x568 - iPhone SE) */
+        @media only screen and (max-width: 375px) {
+          .mini-preview-container {
+            height: 140px;
+          }
+          
+          .mini-preview-score {
+            font-size: 12px;
+          }
+          
+          .game-rotation-text {
+            font-size: 16px;
+          }
+          
+          .game-rotation-subtitle {
+            font-size: 11px;
+          }
+          
+          .mini-preview-start-btn {
+            padding: 8px 16px;
+            font-size: 12px;
+          }
+        }
+        
+        /* Standard Mobile (376px - 414px) */
+        @media only screen and (min-width: 376px) and (max-width: 414px) {
+          .mini-preview-container {
+            height: 160px;
+          }
+          
+          .mini-preview-score {
+            font-size: 14px;
+          }
+        }
+        
+        /* Large Mobile (415px - 428px) */
+        @media only screen and (min-width: 415px) and (max-width: 428px) {
+          .mini-preview-container {
+            height: 180px;
+          }
+          
+          .mini-preview-score {
+            font-size: 16px;
+          }
+          
+          .game-rotation-text {
+            font-size: 20px;
+          }
+          
+          .game-rotation-subtitle {
+            font-size: 14px;
+          }
+        }
+        
+        /* Device Specific Optimizations */
+        /* iPhone SE/8/12/13 */
+        @media only screen and (device-width: 375px) and (device-height: 667px),
+                   only screen and (device-width: 390px) and (device-height: 844px),
+                   only screen and (device-width: 393px) and (device-height: 852px) {
+          .mini-preview-container {
+            border-radius: 20px;
+            border: 2px solid rgba(134, 255, 0, 0.3);
+          }
+          
+          .mini-preview-start-btn {
+            background: linear-gradient(135deg, #86FF00, #00FFFF);
+            font-weight: 600;
+          }
+        }
+        
+        /* Android Common Devices */
+        @media only screen and (device-width: 360px) and (device-height: 640px),
+                   only screen and (device-width: 411px) and (device-height: 731px),
+                   only screen and (device-width: 412px) and (device-height: 892px) {
+          .mini-preview-container {
+            background: rgba(0, 0, 0, 0.4);
+          }
+          
+          .mini-uglydog img {
+            border-radius: 50%;
+            border: 3px solid #ffffff;
           }
         }
       `}</style>
 
       <div className="native-uglydog-game">
+        {/* Game Rotation Prompt - OVERLAY (CSS controls visibility) */}
+        <div className="game-rotation-prompt">
+          <div className="game-rotation-content">
+            {!miniGameState.showMiniGame ? (
+              <>
+                <div className="game-rotation-icon">🎮</div>
+                <div className="game-rotation-text">Try Mini Preview</div>
+                <div className="game-rotation-subtitle">Tap to experience the game</div>
+                <div className="game-rotation-subtitle">📱 Rotate for full game experience</div>
+                <button 
+                  className="mini-preview-start-btn"
+                  onClick={startMiniGame}
+                >
+                  Start Mini Game
+                </button>
+              </>
+            ) : (
+              <>
+                <div className="mini-preview-container">
+                  <div className="mini-preview-score">Score: {miniGameState.score}</div>
+                  <div 
+                    className="mini-uglydog"
+                    style={{
+                        left: `${miniGameState.dogPosition.x}%`,
+                        top: `${miniGameState.dogPosition.y}%`,
+                        position: 'absolute',
+                        cursor: 'pointer',
+                        transition: 'all 0.3s ease',
+                        fontSize: '40px',
+                        userSelect: 'none'
+                      }}
+                      onClick={handleMiniDogClick}
+                    >
+                      🐶
+                    </div>
+                  </div>
+                  <div className="game-rotation-subtitle">📱 Rotate for full game experience</div>
+                </>
+              )}
+            </div>
+          </div>
+        
         {/* Main Game Layout - Grid System */}
         <div className="game-main-grid">
           {/* Left Side - Game Area */}
           <div className="game-area">
             {/* Gaming HUD - Horizontal Bar */}
             <div className="gaming-hud">
+              {/* Mobile Dropdown Buttons - Only visible on mobile */}
+              <div className="mobile-dropdown-buttons">
+                <button 
+                  className="mobile-dropdown-btn"
+                  onClick={() => setShowLeaderboardDropdown(!showLeaderboardDropdown)}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+                    <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+                    <path d="M4 22h16"/>
+                    <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+                    <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+                    <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+                  </svg>
+                  Leaderboard
+                  <svg className={`dropdown-arrow ${showLeaderboardDropdown ? 'open' : ''}`} width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </button>
+                
+                <button 
+                  className="mobile-dropdown-btn"
+                  onClick={() => setShowHowToPlayDropdown(!showHowToPlayDropdown)}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                    <circle cx="12" cy="17" r="1"/>
+                  </svg>
+                  How to Play
+                  <svg className={`dropdown-arrow ${showHowToPlayDropdown ? 'open' : ''}`} width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="6,9 12,15 18,9"/>
+                  </svg>
+                </button>
+              </div>
+
               {/* Health Hearts */}
               <div className="hud-section">
                 <div className="health-hearts">
@@ -2100,11 +3158,12 @@ export default function NativeUglyDogGame() {
                       src="/assets/images/uglydog-original.png" 
                       alt="UglyDog"
                       style={{
-                        width: '60px',
-                        height: '60px',
+                        width: '70px',
+                        height: '70px',
                         objectFit: 'contain',
                         filter: 'drop-shadow(0 0 8px rgba(134, 255, 0, 0.5))',
-                        transition: 'all 0.3s ease'
+                        transition: 'all 0.3s ease',
+                        cursor: dogClickable ? 'pointer' : 'not-allowed'
                       }}
                     />
                     <div style={{
@@ -2223,6 +3282,54 @@ export default function NativeUglyDogGame() {
                 </button>
               </div>
             )}
+
+            {/* Mobile Leaderboard Dropdown */}
+            <div className={`mobile-dropdown-content ${showLeaderboardDropdown ? 'show' : ''}`}>
+              <div className="mobile-leaderboard">
+                <div className="mobile-leaderboard-header">
+                  <h3>🏆 Leaderboard</h3>
+                  <button 
+                    className="close-dropdown"
+                    onClick={() => setShowLeaderboardDropdown(false)}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="18" y1="6" x2="6" y2="18"/>
+                      <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                  </button>
+                </div>
+                
+                <div className="mobile-leaderboard-content">
+                  {leaderboard.length > 0 ? (
+                    <div className="mobile-leaderboard-list">
+                      {leaderboard.slice(0, 5).map((player, index) => (
+                        <div key={player.user_id || index} className="mobile-leaderboard-item">
+                          <div className="mobile-rank">#{player.rank || index + 1}</div>
+                          <div className="mobile-player-info">
+                            <div className="mobile-player-name">{player.username || player.name || (player.user && player.user.name) || 'Anon'}</div>
+                            <div className="mobile-player-level">{player.evolution_stage}</div>
+                          </div>
+                          <div className="mobile-player-score">{player.best_session ?? player.total_score ?? player.score ?? 0}</div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="mobile-leaderboard-empty">
+                      <div className="mobile-empty-text">No scores yet</div>
+                      <div className="mobile-empty-subtitle">Be the first to play!</div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Your Best Score */}
+                {gameState.highestScore > 0 && (
+                  <div className="mobile-personal-best">
+                    <div className="mobile-personal-best-label">Your Best</div>
+                    <div className="mobile-personal-best-score">{gameState.highestScore}</div>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
 
           {/* Right Side - Leaderboard */}
@@ -2281,6 +3388,51 @@ export default function NativeUglyDogGame() {
 
         {/* How to Play Section - Full Width Bottom */}
         <div className="how-to-play-section">
+          {/* Mobile How to Play Dropdown */}
+          <div className={`mobile-dropdown-content ${showHowToPlayDropdown ? 'show' : ''}`}>
+            <div className="mobile-how-to-play">
+              <div className="mobile-how-to-play-header">
+                <h3>❓ How to Play</h3>
+                <button 
+                  className="close-dropdown"
+                  onClick={() => setShowHowToPlayDropdown(false)}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                  </svg>
+                </button>
+              </div>
+              
+              <div className="mobile-how-to-play-grid">
+                <div className="mobile-instruction-card">
+                  <div className="mobile-instruction-icon">🎯</div>
+                  <div className="mobile-instruction-title">Click UglyDog</div>
+                  <div className="mobile-instruction-text">Click the UglyDog before it disappears to score points</div>
+                </div>
+                
+                <div className="mobile-instruction-card">
+                  <div className="mobile-instruction-icon">⚡</div>
+                  <div className="mobile-instruction-title">Speed Challenge</div>
+                  <div className="mobile-instruction-text">Higher levels = faster spawns and shorter timers</div>
+                </div>
+                
+                <div className="mobile-instruction-card">
+                  <div className="mobile-instruction-icon">❤️</div>
+                  <div className="mobile-instruction-title">Health System</div>
+                  <div className="mobile-instruction-text">3 misses = lose 1 health. Game over when health reaches 0</div>
+                </div>
+                
+                <div className="mobile-instruction-card">
+                  <div className="mobile-instruction-icon">⭐</div>
+                  <div className="mobile-instruction-title">Level Up</div>
+                  <div className="mobile-instruction-text">Every 50 points = new level + 5 second break</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Desktop How to Play - Hidden on mobile */}
           <div className="how-to-play-header">
             <h3>
               <svg style={{display: 'inline-block', width: '20px', height: '20px', marginRight: '8px', verticalAlign: 'middle'}} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
