@@ -369,7 +369,6 @@ export default function Partner3() {
                                             <img src="/assets/images/partner/09.png" alt="Meteora" />
                                         </Link>
                                     </div>
-                                    
                                 </div>
                             </div>
                         </div>
