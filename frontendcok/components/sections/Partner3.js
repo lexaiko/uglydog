@@ -370,37 +370,7 @@ export default function Partner3() {
                                             <img src="/assets/images/partner/09.png" alt="Meteora" />
                                         </Link>
                                     </div>
-                                                                        {/* Duplikasi lagi untuk memastikan continuous scroll */}
-                                    <div className="image">
-                                        <Link href="https://www.coingecko.com/en/coins/ugly-dog">
-                                            <img src="/assets/images/partner/06.png" alt="CoinGecko" />
-                                        </Link>
-                                    </div>
-                                    <div className="image">
-                                        <Link href="https://www.ascendex.com/">
-                                            <img src="/assets/images/partner/07.png" alt="AscendEX" />
-                                        </Link>
-                                    </div>
-                                    <div className="image">
-                                        <Link href="https://kulinohouse.com/">
-                                            <img src="/assets/images/partner/11.png" alt="Orca" />
-                                        </Link>
-                                    </div>
-                                    <div className="image">
-                                        <Link href="https://v2.raydium.io/swap/?inputCurrency=sol&outputCurrency=74Rq6Bmckiq8qvARhdqxPfQtkQsxsqVKCbDQL5PKpump">
-                                            <img src="/assets/images/partner/08.png" alt="Raydium" />
-                                        </Link>
-                                    </div>
-                                    <div className="image">
-                                        <Link href="https://www.orca.so/?tokenIn=So11111111111111111111111111111111111111112&tokenOut=74Rq6Bmckiq8qvARhdqxPfQtkQsxsqVKCbDQL5PKpump">
-                                            <img src="/assets/images/partner/10.png" alt="Orca" />
-                                        </Link>
-                                    </div>
-                                    <div className="image">
-                                        <Link href="https://app.meteora.ag/pools/CafWuKH9pji8LJ7QmQjtG4VZqqGJP6aNf3F1kbyzSxt6">
-                                            <img src="/assets/images/partner/09.png" alt="Meteora" />
-                                        </Link>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
