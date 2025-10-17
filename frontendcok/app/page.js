@@ -11,7 +11,7 @@ import UglyDogGameLayout from "@/components/uglydog/UglyDogGameLayout"
 export default function App() {
     // Set to true to enable maintenance mode
     // You can also set this via environment variable: NEXT_PUBLIC_MAINTENANCE_MODE=true
-    const isMaintenanceMode = true
+    const isMaintenanceMode = false
 
     if (isMaintenanceMode) {
         return <Maintenance />
